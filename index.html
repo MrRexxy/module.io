@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ModulHub – Katalog Modul Magisk</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f5f8;--card:#fff;--ink:#121a28;--mute:#5d6a80;--line:#dde3ec;--acc:#b86e00;--accfg:#fff;--tag:#e3f4f1;--tagfg:#0b6b5f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1624;--card:#17202f;--ink:#e8edf5;--mute:#8f9db3;--line:#26324a;--acc:#f5b544;--accfg:#1b1300;--tag:#12332f;--tagfg:#5fd9c8}}
+:root[data-theme="dark"]{--bg:#0f1624;--card:#17202f;--ink:#e8edf5;--mute:#8f9db3;--line:#26324a;--acc:#f5b544;--accfg:#1b1300;--tag:#12332f;--tagfg:#5fd9c8}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3,.logo{font-family:"Space Grotesk",system-ui,sans-serif;margin:0}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:700;font-size:20px}
+nav a{color:var(--mute);text-decoration:none;margin-left:20px;font-size:15px}
+nav a:hover,nav a:focus-visible{color:var(--ink)}
+.hero{padding:56px 0 28px}
+.hero h1{font-size:clamp(32px,6vw,52px);line-height:1.08;max-width:15em}
+.hero p{color:var(--mute);max-width:34em;margin:14px 0 24px}
+.search{display:flex;gap:10px;max-width:520px}
+input{flex:1;min-width:0;padding:13px 16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.chip{padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:none;color:var(--mute);font:inherit;font-size:14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding-bottom:48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:18px}
+.card p{margin:0;color:var(--mute);font-size:14.5px;flex:1}
+.meta{display:flex;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+.tag{background:var(--tag);color:var(--tagfg);border-radius:6px;padding:2px 9px;font-size:13px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px}
+.btn{background:var(--acc);color:var(--accfg);border:0;border-radius:9px;padding:9px 16px;font:500 14px "IBM Plex Sans",sans-serif;text-decoration:none;cursor:pointer}
+.empty{grid-column:1/-1;color:var(--mute);padding:30px 0}
+.how{border-top:1px solid var(--line);padding:36px 0}
+.how ol{color:var(--mute);padding-left:20px;max-width:40em}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--mute);font-size:14px}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.don{border-top:1px solid var(--line);padding:36px 0 48px}
+.don p{color:var(--mute);max-width:34em}
+dialog{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:24px;max-width:460px;width:calc(100% - 32px)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+dialog dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:14px 0;font-size:15px}
+dialog dt{color:var(--mute)}dialog dd{margin:0}
+.log{background:var(--bg);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--mute);margin:0 0 18px}
+/* Gaya KernelSU: Material You + kaca cair */
+:root{--bg:#eef1fb;--card:rgba(255,255,255,.55);--dlg:rgba(255,255,255,.85);--line:rgba(255,255,255,.75);--ink:#161a2e;--mute:#566080;--acc:#4b5bd6;--accfg:#fff;--tag:rgba(75,91,214,.14);--tagfg:#3a46b5;--b1:#8fa2ff;--b2:#d49bff;--b3:#7fe0ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0e1c;--card:rgba(32,38,70,.42);--dlg:rgba(20,25,52,.85);--line:rgba(255,255,255,.13);--ink:#e6e8f7;--mute:#9aa3c4;--acc:#aab6ff;--accfg:#0e1236;--tag:rgba(170,182,255,.16);--tagfg:#c3cbff;--b1:#4d5fe8;--b2:#8a46d6;--b3:#1f9fc4}}
+:root[data-theme="dark"]{--bg:#0b0e1c;--card:rgba(32,38,70,.42);--dlg:rgba(20,25,52,.85);--line:rgba(255,255,255,.13);--ink:#e6e8f7;--mute:#9aa3c4;--acc:#aab6ff;--accfg:#0e1236;--tag:rgba(170,182,255,.16);--tagfg:#c3cbff;--b1:#4d5fe8;--b2:#8a46d6;--b3:#1f9fc4}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.7;
+background:radial-gradient(38% 38% at 20% 25%,var(--b1),transparent 70%),radial-gradient(34% 34% at 80% 20%,var(--b2),transparent 70%),radial-gradient(40% 40% at 60% 85%,var(--b3),transparent 70%)}
+@keyframes flow{to{transform:translate(6%,4%) rotate(12deg) scale(1.12)}}
+@media (prefers-reduced-motion:reduce){body::before{animation:none}}
+header{}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--card);border-bottom:1px solid var(--line)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 8px 32px rgba(10,15,50,.18),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-3px)}
+input{background:var(--card);border-radius:99px;padding:14px 20px}
+.chip{background:var(--card);border-radius:99px;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--acc);color:var(--accfg);border-color:transparent}
+.btn{border-radius:99px;padding:10px 20px}
+.btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.tag{border-radius:99px}
+dialog{background:var(--dlg);border-radius:28px;border:1px solid var(--line)}
+.log{background:var(--tag);border-radius:14px}
+.tabs{display:inline-flex;flex-wrap:wrap;max-width:100%;gap:4px;padding:4px;margin:0 0 14px;border-radius:24px;background:var(--card);border:1px solid var(--line)}
+.tabs button{border:0;background:none;color:var(--ink);font:500 15px "IBM Plex Sans",sans-serif;padding:9px 16px;border-radius:99px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--acc);color:var(--accfg)}
+.hero p#tabinfo{margin:0 0 18px}
+.warn{border:1px solid var(--acc);background:var(--tag);border-radius:16px;padding:12px 16px;margin:0 0 16px;font-size:14.5px}
+body::before{content:none}
+header{background:var(--dlg)}
+:root{--g1:rgba(143,162,255,.45);--g2:rgba(212,155,255,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:rgba(77,95,232,.35);--g2:rgba(138,70,214,.3)}}
+:root[data-theme="dark"]{--g1:rgba(77,95,232,.35);--g2:rgba(138,70,214,.3)}
+body{background:radial-gradient(60% 45% at 10% 0%,var(--g1),transparent),radial-gradient(55% 40% at 95% 8%,var(--g2),transparent),var(--bg)}
+.how,.don,footer{border-color:var(--line)}
+</style>
+</head>
+<body>
+<header><div class="wrap"><span class="logo">ModulHub</span><nav><a href="#katalog">Katalog</a><a href="#cara">Cara pasang</a><a href="#donasi">Donasi</a></nav></div></header>
+
+<main class="wrap">
+<section class="hero">
+<h1>Modul Magisk yang rapi dan mudah dicari</h1>
+<p>Cari modul untuk perangkat root kamu, lihat versi dan kebutuhan Android, lalu unduh langsung.</p>
+<div class="tabs" id="tabs"><button data-t="modul" aria-pressed="true">Modul Root</button><button data-t="plugin" aria-pressed="false">Plugin AX Manager</button><button data-t="apk" aria-pressed="false">Aplikasi (APK)</button></div>
+<p id="tabinfo" style="margin-top:0">Modul untuk perangkat root Magisk.</p>
+<div class="search"><input id="q" type="search" placeholder="Cari modul, mis. LSPosed" aria-label="Cari"></div>
+</section>
+
+<div class="warn" id="warn" role="note" hidden><strong>Peringatan:</strong> selalu unduh aplikasi dari situs resminya (misalnya halaman rilis resmi di GitHub). APK dari sumber tidak dikenal bisa berisi malware atau sudah dimodifikasi. Aplikasi root punya akses penuh ke perangkatmu, jadi periksa dulu sumbernya sebelum memasang.</div>
+<div class="chips" id="chips"></div>
+<div class="grid" id="katalog"></div>
+
+<section class="how" id="cara">
+<h2>Cara memasang modul</h2>
+<ol>
+<li>Unduh file modul (.zip) dari kartu di atas.</li>
+<li>Buka aplikasi Magisk, masuk ke tab Modul.</li>
+<li>Pilih "Pasang dari penyimpanan" lalu pilih file .zip tadi.</li>
+<li>Setelah selesai, mulai ulang perangkat.</li>
+</ol>
+</section>
+<section class="don" id="donasi">
+<h2>Dukung ModulHub</h2>
+<p>Situs ini gratis. Donasi membantu biaya server dan pembaruan katalog.</p>
+<a class="btn" href="#">Donasi sekarang</a>
+</section>
+</main>
+
+<dialog id="dlg" aria-labelledby="dt"></dialog>
+<dialog id="wdlg" aria-labelledby="wt"><h2 id="wt">⚠️ Peringatan</h2><p>Selalu unduh aplikasi dari <strong>situs resminya</strong>. APK dari sumber tidak dikenal bisa berisi malware atau sudah dimodifikasi, dan aplikasi root punya akses penuh ke perangkatmu.</p><p class="log">Periksa dulu sumbernya sebelum memasang.</p><div class="row"><span></span><button class="btn" id="wok">Saya mengerti</button></div></dialog>
+
+<footer><div class="wrap">Pasang modul dengan risiko sendiri. Cadangkan data sebelum memodifikasi perangkat. Unduh aplikasi hanya dari situs resminya.</div></footer>
+
+<script>
+var MODULES=[],PLUGINS=[],APKS=[],LIST=[],NOUN="modul",cats=[],cat="Semua";
+var box=document.getElementById("katalog"),chips=document.getElementById("chips"),q=document.getElementById("q");
+function setCats(){cats=["Semua"].concat(LIST.map(function(m){return m.cat}).filter(function(c,i,a){return a.indexOf(c)===i}))}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+// Tombol unduh: pakai "file" (di situs ini), atau "url" (situs lain). Kosong = Segera hadir.
+function dl(m){var l=m.file||m.url;return l?'<a class="btn" href="'+esc(l)+'" download>Unduh '+NOUN+'</a>':'<span class="btn ghost">Segera hadir</span>'}
+function drawChips(){chips.innerHTML=cats.map(function(c){return '<button class="chip" aria-pressed="'+(c===cat)+'" data-c="'+esc(c)+'">'+esc(c)+'</button>'}).join("")}
+function draw(){
+var t=q.value.trim().toLowerCase();
+var list=LIST.filter(function(m){return(cat==="Semua"||m.cat===cat)&&(m.name+" "+m.desc).toLowerCase().indexOf(t)>-1});
+box.innerHTML=list.length?list.map(function(m){return '<article class="card"><div class="row"><h3>'+esc(m.name)+'</h3><span class="tag">'+esc(m.cat)+'</span></div><p>'+esc(m.desc)+'</p><div class="meta"><span>'+esc(m.ver)+'</span>'+(m.android?'<span>Android '+esc(m.android)+'</span>':'')+(m.axmin?'<span>AX Manager '+esc(m.axmin)+'</span>':'')+'</div><div class="row"><button class="btn ghost" data-i="'+LIST.indexOf(m)+'">Detail</button>'+dl(m)+'</div></article>'}).join(""):'<div class="empty">'+(LIST.length?'Tidak ada yang cocok. Coba kata kunci lain atau pilih kategori Semua.':'Belum ada '+NOUN+' di sini. Segera hadir.')+'</div>';
+}
+chips.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;cat=b.dataset.c;drawChips();draw()});
+q.addEventListener("input",draw);
+var wdlg=document.getElementById("wdlg");document.getElementById("wok").onclick=function(){wdlg.close()};wdlg.addEventListener("click",function(e){if(e.target===wdlg)wdlg.close()});
+var tabs=document.getElementById("tabs"),info=document.getElementById("tabinfo");
+var INFO={modul:"Modul untuk perangkat root Magisk.",plugin:"Plugin khusus AX Manager. Dipisah dari modul root agar mudah dicari.",apk:"Aplikasi manajer root, seperti Magisk, KernelSU Next, dan AX Manager."};
+tabs.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var t=b.dataset.t;if(t==="apk"&&b.getAttribute("aria-pressed")!=="true")wdlg.showModal();LIST={modul:MODULES,plugin:PLUGINS,apk:APKS}[t];NOUN=t;cat="Semua";q.value="";setCats();
+[].forEach.call(tabs.children,function(x){x.setAttribute("aria-pressed",x===b)});info.textContent=INFO[t];document.getElementById("warn").hidden=t!=="apk";q.placeholder="Cari "+t+(LIST[0]?", mis. "+LIST[0].name:"");drawChips();draw()});
+var dlg=document.getElementById("dlg");
+box.addEventListener("click",function(e){var b=e.target.closest("button[data-i]");if(!b)return;var m=LIST[b.dataset.i];
+dlg.innerHTML='<h2 id="dt">'+esc(m.name)+'</h2><dl><dt>Kategori</dt><dd>'+esc(m.cat)+'</dd><dt>Versi</dt><dd>'+esc(m.ver)+'</dd><dt>Android</dt><dd>'+esc(m.android||"-")+'</dd>'+(m.axmin?'<dt>AX Manager</dt><dd>'+esc(m.axmin)+'</dd>':'')+'<dt>Ukuran</dt><dd>'+esc(m.size||"-")+'</dd>'+(m.author?'<dt>Pembuat</dt><dd>'+esc(m.author)+'</dd>':'')+'</dl><p>'+esc(m.desc)+'</p><p class="log">'+esc(m.log||"Belum ada catatan perubahan.")+'</p><div class="row"><button class="btn ghost" id="cl">Tutup</button>'+dl(m)+'</div>';
+dlg.showModal();document.getElementById("cl").onclick=function(){dlg.close()}});
+dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+fetch("data.json").then(function(r){return r.json()}).then(function(d){MODULES=d.modul||[];PLUGINS=d.plugin||[];APKS=d.apk||[];var dn=document.querySelector("#donasi .btn");if(d.donasi){dn.href=d.donasi}else{document.getElementById("donasi").hidden=true;var na=document.querySelector('nav a[href="#donasi"]');if(na)na.hidden=true}LIST=MODULES;setCats();drawChips();draw()}).catch(function(){box.innerHTML='<div class="empty">Gagal memuat data.json. Pastikan file ada di folder yang sama dengan index.html dan buka lewat alamat situs, bukan langsung dari file.</div>'});
+</script>
+</body>
+</html>
