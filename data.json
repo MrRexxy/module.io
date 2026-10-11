@@ -46,12 +46,13 @@
   "plugin": [
     {
       "name": "APO-Performance-v2.1",
-      "cat": "Pengujian CPU inti tunggal dan multi-inti.",
+      "cat": "Pengujian CPU",
       "desc": "APO Performance Lab adalah modul diagnostik dan optimasi untuk Android",
-      "axmin": "v1.+",
+      "axmin": "v1.0+",
       "size": "0,18MB",
       "log": "",
       "author": "void adb",
       "file": "file/APO-Performance-v2.1.zip"
-    },
+    }
   ]
+}
