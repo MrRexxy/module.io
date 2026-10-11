@@ -31,6 +31,31 @@
       "size": "2 KB",
       "log": "",
       "file": "file/smooth_ui_9T.zip"
+    },
+    {
+  "name": "ProjectRaco-7.0-LAB",
+  "cat": "Performa All In One",
+  "ver": "v7.0",
+  "android": "10+",
+  "desc": "Optimalkan Aplikasi Secara Menyeluruh.",
+  "size": "23.34MB",
+  "log": "Asisten Game Raco Generasi 2
+Optimalkan aplikasi secara keseluruhan.
+Migrasikan FSTRIM dan Bersihkan Cache ke C
+Hubungkan kembali aplikasi ke Crowdin.
+Optimalisasi untuk mendapatkan optimasi warna saat mengatur gambar baru.
+Membawa kembali Ayunda Rusdi pada fitur sistem yang luas
+Optimalkan Eksekusi Ayunda Rusdi
+Revisi besar pada sistem file konfigurasi.
+Perbaiki logika terbalik pada notifikasi senyap
+Ayunda Rusdi hadir dan disederhanakan agar lebih mudah digunakan.
+L2D dari Zefanya Raco, Pengerjaan Ulang untuk Gaya VN, Penambahan BGM
+Perombakan mode Cooldown
+Desain ulang, geser ke kanan 3 kali untuk membatalkan.
+Membawa perbaikan dari versi uji coba Project Raco 6.xx terakhir.
+Metode penggantian untuk tangkapan layar (Sekarang menggunakan screencap) untuk kompatibilitas ROM yang lebih luas
+Penghitung Sistem Generasi 2 (Metode baru untuk mendapatkan FPS).",
+  "file": "file/ProjectRaco-7.0-LAB.zip"
     }
   ],
   "plugin": []
