@@ -51,8 +51,16 @@
       "axmin": "v1.0+",
       "size": "0,18MB",
       "log": "",
-      "author": "void adb",
+      "author": "VOID_ADB",
       "file": "file/APO-Performance-v2.1.zip"
+    },
+    {
+      "name": "VOID-GPU-Engine-v1.6",
+      "cat": "Gaming Performance",
+      "desc": "VOID GPU Engine is an Android gaming optimization module designed to operate rootless via AxManager using ADB commands. It features 26 functions focused on graphics performance, rendering, display, memory, and game management, offering reversible settings and an intuitive WebUI.",
+      "size": "0,32MB",
+      "author": "VOID_ADB",
+      "file": "file/VOID-GPU-Engine-v1.6.zip"
     }
   ]
 }
