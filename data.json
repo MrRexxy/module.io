@@ -68,13 +68,14 @@
       "name": "Magisk",
       "cat": "root",
       "ver": "Terbaru",
-      "Android": "6.0+",
+      "android": "6.0+",
       "desc": "Manajer root",
       "url": "https://github.com/topjohnwu/Magisk/releases"
     },
     {
       "name": "KernelSU Next",
       "cat": "root",
+      "ver": "terbaru",
       "desc": "Manajer root berbasis kernel",
       "url": "https://github.com/KernelSU-Next/KernelSU-Next"
     },
