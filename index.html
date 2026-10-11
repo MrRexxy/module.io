@@ -110,11 +110,13 @@ details.guide summary{cursor:pointer;font-weight:500}
 details.guide ol{padding-left:20px;color:var(--mute)}
 #cmt{margin:0 0 14px}
 dialog{max-width:520px;max-height:calc(100% - 24px)}
+.rep{margin:12px 0 0;font-size:13.5px}
+.rep a,footer a{color:var(--mute)}
 </style>
 </head>
 <body>
 <header><div class="wrap"><span class="logo">ModulHub</span><nav><a href="#katalog">Katalog</a><a href="#cara">Cara pasang</a><a href="#tentang" id="navt" hidden>Tentang</a><a href="#donasi">Donasi</a></nav></div></header>
-  <div class="warp"><div class="warn"style="margin-top:16px">🚨Website ini masih dalam pengembangan. Beberapa fitur dan modul mungkin belum lengkap.</div></div>
+  div class="warp"><div class="warn"style="margin-top:16px">🚨Website ini masih dalam pengembangan. Beberapa fitur dan modul mungkin belum lengkap.</div></div>
 
 <main class="wrap">
 <section class="hero">
@@ -122,6 +124,115 @@ dialog{max-width:520px;max-height:calc(100% - 24px)}
 <p>Cari modul untuk perangkat root kamu, lihat versi dan kebutuhan Android, lalu unduh langsung.</p>
 <div class="tabs" id="tabs"><button data-t="modul" aria-pressed="true">Modul Root</button><button data-t="plugin" aria-pressed="false">Plugin AX Manager</button><button data-t="apk" aria-pressed="false">Aplikasi (APK)</button></div>
 <p id="tabinfo" style="margin-top:0">Modul untuk perangkat root Magisk.</p>
+<div class="search"><input id="q" type="search" placeholder="Cari modul, mis. LSPosed" aria-label="Cari"></div>
+<div class="tools">
+<label>Urutkan <select id="sort"><option value="baru">Terbaru</option><option value="nama">Nama A-Z</option></select></label>
+<label>Android <select id="av"><option value="">Semua</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option></select></label>
+<label id="chipL" hidden>Chipset <select id="chip"></select></label>
+</div>
+</section>
+
+<div class="warn" id="warn" role="note" hidden><strong>Peringatan:</strong> selalu unduh aplikasi dari situs resminya (misalnya halaman rilis resmi di GitHub). APK dari sumber tidak dikenal bisa berisi malware atau sudah dimodifikasi. Aplikasi root punya akses penuh ke perangkatmu, jadi periksa dulu sumbernya sebelum memasang.</div>
+<div class="chips" id="chips"></div>
+<div class="grid" id="katalog"></div>
+
+<section class="how" id="cara">
+<h2>Cara memasang modul</h2>
+<ol>
+<li>Unduh file modul (.zip) dari kartu di atas.</li>
+<li>Buka aplikasi Magisk, masuk ke tab Modul.</li>
+<li>Pilih "Pasang dari penyimpanan" lalu pilih file .zip tadi.</li>
+<li>Setelah selesai, mulai ulang perangkat.</li>
+</ol>
+</section>
+<section class="how" id="tentang" hidden>
+<h2>Tentang ModulHub</h2>
+<p id="tentangtxt"></p>
+</section>
+<section class="don" id="donasi">
+<h2>Dukung ModulHub</h2>
+<p>Situs ini gratis. Donasi membantu biaya server dan pembaruan katalog.</p>
+<a class="btn" href="#">Donasi sekarang</a>
+</section>
+</main>
+
+<dialog id="dlg" aria-labelledby="dt"></dialog>
+<dialog id="wdlg" aria-labelledby="wt"><h2 id="wt">⚠️ Peringatan</h2><p>Selalu unduh aplikasi dari <strong>situs resminya</strong>. APK dari sumber tidak dikenal bisa berisi malware atau sudah dimodifikasi, dan aplikasi root punya akses penuh ke perangkatmu.</p><p class="log">Periksa dulu sumbernya sebelum memasang.</p><div class="row"><span></span><button class="btn" id="wok">Saya mengerti</button></div></dialog>
+
+<footer><div class="wrap">Pasang modul dengan risiko sendiri. Cadangkan data sebelum memodifikasi perangkat. Unduh aplikasi hanya dari situs resminya. <a id="rep" href="#" target="_blank" rel="noopener" hidden>Laporkan masalah</a> <button class="btn ghost sm" id="inst" hidden>Pasang sebagai aplikasi</button></div></footer>
+
+<script>
+var DATA={},MODULES=[],PLUGINS=[],APKS=[],LIST=[],NOUN="modul",cats=[],cat="Semua";
+function $(i){return document.getElementById(i)}
+var box=$("katalog"),chips=$("chips"),q=$("q"),sortS=$("sort"),avS=$("av"),chS=$("chip"),chL=$("chipL"),dlg=$("dlg"),wdlg=$("wdlg"),tabs=$("tabs"),info=$("tabinfo");
+var INFO={modul:"Modul untuk perangkat root Magisk.",plugin:"Plugin khusus AX Manager. Dipisah dari modul root agar mudah dicari.",apk:"Aplikasi manajer root, seperti Magisk, KernelSU Next, dan AX Manager."};
+var GUIDE={
+modul:["Unduh file modul (.zip).","Buka aplikasi root-mu (Magisk, KernelSU, atau sejenisnya) lalu masuk ke tab Modul.","Pilih pasang dari penyimpanan, lalu pilih file .zip tadi.","Mulai ulang perangkat setelah selesai."],
+plugin:["Unduh file plugin.","Pasang lewat AX Manager sesuai petunjuk plugin tersebut.","Mulai ulang aplikasi atau perangkat bila diminta."],
+apk:["Unduh APK dari situs resminya.","Izinkan pemasangan dari sumber ini bila diminta.","Buka file APK lalu ketuk Pasang."]};
+var BOOT="Jika perangkat bootloop setelah memasang modul: masuk Mode Aman atau TWRP, lalu hapus folder modul di /data/adb/modules/ dan mulai ulang.";
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function uniq(a){return a.filter(function(c,i,x){return x.indexOf(c)===i})}
+// Tombol unduh: pakai "file" (di situs ini) atau "url" (situs lain). Kosong = Segera hadir.
+function dl(m){var l=m.file||m.url;return l?'<a class="btn" href="'+esc(l)+'" download>Unduh '+NOUN+'</a>':'<span class="btn ghost">Segera hadir</span>'}
+function isNew(m){if(!m.date)return false;var d=Date.parse(m.date);return !isNaN(d)&&(Date.now()-d)/864e5<=14}
+function fmt(m){var d=Date.parse(m.date);return m.date&&!isNaN(d)?new Date(d).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}):""}
+function badges(m){return(isNew(m)?'<span class="badge">Baru</span>':'')+(m.tested?'<span class="badge ok">✓ Diuji</span>':'')}
+function setCats(){
+cats=["Semua"].concat(uniq(LIST.map(function(m){return m.cat})));
+var cs=uniq(LIST.map(function(m){return m.chipset}).filter(Boolean));
+chS.innerHTML='<option>Semua</option>'+cs.map(function(c){return'<option>'+esc(c)+'</option>'}).join("");chL.hidden=!cs.length}
+function drawChips(){chips.innerHTML=cats.map(function(c){return '<button class="chip" aria-pressed="'+(c===cat)+'" data-c="'+esc(c)+'">'+esc(c)+'</button>'}).join("")}
+function filtered(){
+var t=q.value.trim().toLowerCase(),s=parseFloat(avS.value),c=chS.value;
+var arr=LIST.map(function(m,i){return{m:m,i:i}}).filter(function(x){var m=x.m;
+if(cat!=="Semua"&&m.cat!==cat)return false;
+if((m.name+" "+m.desc).toLowerCase().indexOf(t)<0)return false;
+if(s){var n=parseFloat(m.android);if(!isNaN(n)&&n>s)return false}
+if(c&&c!=="Semua"&&m.chipset&&m.chipset.toLowerCase()!==c.toLowerCase())return false;
+return true});
+if(sortS.value==="nama")arr.sort(function(a,b){return a.m.name.localeCompare(b.m.name)});
+else arr.sort(function(a,b){var da=a.m.date?Date.parse(a.m.date):-Infinity,db=b.m.date?Date.parse(b.m.date):-Infinity;if(isNaN(da))da=-Infinity;if(isNaN(db))db=-Infinity;return(db-da)||(a.i-b.i)});
+return arr}
+function draw(){
+var arr=filtered();
+box.innerHTML=arr.length?arr.map(function(x){var m=x.m;return '<article class="card"><div class="row"><h3>'+esc(m.name)+'</h3><span class="tag">'+esc(m.cat)+'</span></div><p>'+esc(m.desc)+'</p><div class="meta">'+(m.ver?'<span>'+esc(m.ver)+'</span>':'')+(m.android?'<span>Android '+esc(m.android)+'</span>':'')+(m.axmin?'<span>AX Manager '+esc(m.axmin)+'</span>':'')+badges(m)+'</div><div class="row"><button class="btn ghost" data-i="'+x.i+'">Detail</button><button class="btn ghost" data-s="'+x.i+'">Bagikan</button>'+dl(m)+'</div></article>'}).join(""):'<div class="empty">'+(LIST.length?'Tidak ada yang cocok. Coba kata kunci lain, ubah filter, atau pilih kategori Semua.':'Belum ada '+NOUN+' di sini. Segera hadir.')+'</div>'}
+function reportUrl(m){
+if(DATA.laporan)return DATA.laporan;
+var h=location.hostname,p=location.pathname.split("/")[1];
+if(/\.github\.io$/.test(h)&&p){var u="https://github.com/"+h.split(".")[0]+"/"+p+"/issues/new";
+if(m)u+="?title="+encodeURIComponent("[Bug] "+m.name+(m.ver?" "+m.ver:""))+"&body="+encodeURIComponent("Perangkat dan versi Android:\nROM:\nApa yang terjadi:\nLangkah yang dilakukan:\n");
+return u}
+return ""}
+function shareUrl(m){return location.origin+location.pathname+"?t="+NOUN+"&n="+encodeURIComponent(m.name)}
+function share(m,btn){
+var u=shareUrl(m);
+if(navigator.share){navigator.share({title:m.name,text:m.desc,url:u}).catch(function(){});return}
+function done(){if(btn){var o=btn.textContent;btn.textContent="Tautan disalin";setTimeout(function(){btn.textContent=o},1800)}}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(done,function(){prompt("Salin tautan:",u)})}else{prompt("Salin tautan:",u)}}
+function openDetail(i){
+var m=LIST[i];if(!m)return;
+var st=(GUIDE[NOUN]||[]).map(function(x){return'<li>'+esc(x)+'</li>'}).join("");
+var rows='<dt>Kategori</dt><dd>'+esc(m.cat)+'</dd>'+(m.ver?'<dt>Versi</dt><dd>'+esc(m.ver)+'</dd>':'')+'<dt>Android</dt><dd>'+esc(m.android||"-")+'</dd>'+(m.axmin?'<dt>AX Manager</dt><dd>'+esc(m.axmin)+'</dd>':'')+(m.chipset?'<dt>Chipset</dt><dd>'+esc(m.chipset)+'</dd>':'')+'<dt>Ukuran</dt><dd>'+esc(m.size||"-")+'</dd>'+(fmt(m)?'<dt>Tanggal</dt><dd>'+esc(fmt(m))+'</dd>':'')+(m.author?'<dt>Pembuat</dt><dd>'+esc(m.author)+'</dd>':'')+(m.tested?'<dt>Diuji di</dt><dd>'+esc(m.tested)+'</dd>':'');
+var shots=(m.shots&&m.shots.length)?'<div class="shots">'+m.shots.map(function(x){return'<img src="'+esc(x)+'" alt="Tangkapan layar '+esc(m.name)+'" loading="lazy">'}).join("")+'</div>':'';
+var sha=m.sha256?'<div class="sha"><span>SHA-256</span><button class="btn ghost sm" data-copy="'+esc(m.sha256)+'">Salin</button><code>'+esc(m.sha256)+'</code></div>':'';
+var guide='<details class="guide"><summary>Cara pasang</summary>'+(m.guide?'<p>'+esc(m.guide)+'</p>':'<ol>'+st+'</ol>')+(NOUN==="modul"?'<p class="log">'+esc(BOOT)+'</p>':'')+'</details>';
+dlg.innerHTML='<h2 id="dt">'+esc(m.name)+'</h2><div class="meta">'+badges(m)+'</div><dl>'+rows+'</dl>'+shots+'<p>'+esc(m.desc)+'</p><p class="log">'+esc(m.log||"Belum ada catatan perubahan.")+'</p>'+sha+guide+'<div id="cmt"></div><div class="row"><button class="btn ghost" id="cl">Tutup</button><button class="btn ghost" id="sh">Bagikan</button>'+dl(m)+'</div>'+(reportUrl(m)?'<p class="rep"><a href="'+esc(reportUrl(m))+'" target="_blank" rel="noopener">Menemukan masalah? Laporkan</a></p>':'');
+dlg.showModal();
+$("cl").onclick=function(){dlg.close()};
+$("sh").onclick=function(){share(m,$("sh"))};
+var g=DATA.giscus;
+if(g&&g.repo&&g.repoId&&g.category&&g.categoryId){
+$("cmt").innerHTML='<h3>Diskusi</h3>';
+var sc=document.createElement("script");sc.src="https://giscus.app/client.js";sc.async=true;sc.crossOrigin="anonymous";
+var a={repo:g.repo,"repo-id":g.repoId,category:g.category,"category-id":g.categoryId,mapping:"specific",term:NOUN+": "+m.name,"reactions-enabled":"1","input-position":"top",theme:"preferred_color_scheme",lang:"id",loading:"lazy"};
+for(var k in a)sc.setAttribute("data-"+k,a[k]);
+$("cmt").appendChild(sc)}}
+function setTab(t,ask){
+var b=tabs.querySelector('[data-t="'+t+'"]');if(!b)return;
+if(ask&&t==="apk"&&b.getAttribute("aria-pressed")!=="true")wdlg.showModal();
+LIST={modul:MODULES,plugin:PLUGINS,apk:APKS}[t];NOUN=t;cat="Semua";q.value="";setCats();
+[].forEach.call(tabs.chabinfo" style="margin-top:0">Modul untuk perangkat root Magisk.</p>
 <div class="search"><input id="q" type="search" placeholder="Cari modul, mis. LSPosed" aria-label="Cari"></div>
 <div class="tools">
 <label>Urutkan <select id="sort"><option value="baru">Terbaru</option><option value="nama">Nama A-Z</option></select></label>
