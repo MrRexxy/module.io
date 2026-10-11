@@ -1,0 +1,37 @@
+{
+  "donasi": "",
+  "modul": [
+    {
+      "name": "AOSP Enhancer",
+      "cat": "Performa",
+      "ver": "v0.2",
+      "android": "",
+      "desc": "Pengoptimal Android yang menyesuaikan kurang dari 50 parameter kernel agar performa dan baterai lebih seimbang.",
+      "size": "198 KB",
+      "author": "LOOPER (iamlooper), lisensi MIT",
+      "log": "Kode optimasi utama ditulis ulang. Performa jaringan diperbaiki. Log sistem dikurangi.",
+      "file": "file/AOSP-Enhancer-v0_2.zip"
+    },
+    {
+      "name": "Lime Extra Smooth (6GB)",
+      "cat": "Performa",
+      "ver": "v1.0",
+      "android": "",
+      "desc": "Dexopt otomatis saat HP mengisi daya, pengaturan zRAM dan swappiness, serta opsi mematikan efek blur.",
+      "size": "3 KB",
+      "log": "",
+      "file": "file/DexOpt_9T.zip"
+    },
+    {
+      "name": "Lime Smooth UI (SD662)",
+      "cat": "Tampilan",
+      "ver": "v1.1",
+      "android": "",
+      "desc": "Animasi lebih cepat, long-press lebih singkat, penyetelan schedutil dan input boost, serta opsi kunci 60 Hz.",
+      "size": "2 KB",
+      "log": "",
+      "file": "file/smooth_ui_9T.zip"
+    }
+  ],
+  "plugin": []
+}
