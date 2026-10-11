@@ -62,5 +62,28 @@
       "author": "VOID_ADB",
       "file": "file/VOID-GPU-Engine-v1.6.zip"
     }
+  ],
+  "apk": [
+    {
+      "name": "Magisk",
+      "cat": "root",
+      "ver": "Terbaru",
+      "Android": "6.0+",
+      "desc": "Manajer root",
+      "url": "https://github.com/topjohnwu/Magisk/releases"
+    },
+    {
+      "name": "KernelSU Next",
+      "cat": "root",
+      "desc": "Manajer root berbasis kernel",
+      "url": "https://gituub.com/KernelSU-Next/KernelSU-Next/releases"
+    },
+    {
+      "name": "AX Manger",
+      "cat": "ADB",
+      "ver": "terbaru",
+      "desc": "Aplikasi plugin dengan dukungan Shizuku",
+      "url": "https://github.com/fahrez182/AxManager/releases"
+    }
   ]
 }
