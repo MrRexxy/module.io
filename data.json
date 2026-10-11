@@ -76,7 +76,7 @@
       "name": "KernelSU Next",
       "cat": "root",
       "desc": "Manajer root berbasis kernel",
-      "url": "https://github.com/KernelSU-Next/KernelSU-Next/releases"
+      "url": "https://github.com/KernelSU-Next/KernelSU-Next"
     },
     {
       "name": "AX Manger",
