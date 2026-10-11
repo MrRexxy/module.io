@@ -43,7 +43,6 @@
       "file": "file/ProjectRaco-7.0-LAB.zip"
     }
   ]
-  
   "plugin": [
     {
       "name": "APO-Performance-v2.1"
@@ -51,7 +50,7 @@
       "desc": "APO Performance Lab adalah modul diagnostik dan optimasi untuk Android yang menggabungkan pengujian performa, analisis lag, dan penyesuaian sistem dalam satu antarmuka."
       "axmin": "v1.+"
       "size": "0,18MB"
-      "log": "",
+      "log": ""
       "file": "file/APO-Performance-v2.1.zip"
     }
   ]
