@@ -19,10 +19,9 @@
       "ver": "v1.0",
       "android": "10+",
       "tested": "Redmi 9T, Android 16",
-      "note": "Lime ONLY! I don't know if this works on other devices. Please try it yourself!",
       "desc": "Dexopt otomatis saat HP mengisi daya, pengaturan zRAM dan swappiness, serta opsi mematikan efek blur.",
       "size": "3 KB",
-      "log": "",
+      "log": "Lime ONLY! I don't know if this works on other devices. Please try it yourself!",
       "file": "file/DexOpt_9T.zip"
     },
     {
@@ -31,10 +30,9 @@
       "ver": "v1.1",
       "android": "10+",
       "tested": "Redmi 9T, Android 16",
-      "note": "Lime ONLY! I don't know if this works on other devices. Please try it yourself!",
       "desc": "Animasi lebih cepat, long-press lebih singkat, penyetelan schedutil dan input boost, serta opsi kunci 60 Hz.",
       "size": "2 KB",
-      "log": "",
+      "log": "Lime ONLY! I don't know if this works on other devices. Please try it yourself!",
       "file": "file/smooth_ui_9T.zip"
     },
     {
