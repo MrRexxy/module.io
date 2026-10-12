@@ -45,6 +45,17 @@
       "size": "23.34MB",
       "log": "Asisten Game Raco Generasi 2 Dan Banyak Lagi",
       "file": "file/ProjectRaco-7.0-LAB.zip"
+    },
+    {
+      "name": "Universal-Tuner",
+      "cat": "Universal Performance",
+      "ver": "v0.02",
+      "android": "10+",
+      "tested": "Redmi,Infinix",
+      "desc": "Universal Performance. (Mediatek,Exynos,Snapdragon,UNISOC)",
+      "size": "0,10MB",
+      "log": "Please Tested On Your Devices, This Module Early Acces",
+      "file": "file/Universal-Tuner-v0_2.zip"
     }
   ],
   "plugin": [
@@ -62,7 +73,7 @@
     {
       "name": "VOID-GPU-Engine-v1.6",
       "cat": "Gaming Performance",
-      "desc": "VOID GPU Engine is an Android gaming optimization module designed to operate rootless via AxManager using ADB commands. It features 26 functions focused on graphics performance, rendering, display, memory, and game management, offering reversible settings and an intuitive WebUI.",
+      "desc": "VOID GPU Engine is an Android gaming optimization module designed to operate rootless via  using Via ADB COMMANDS features. It features 26 functions focused on graphics performance, rendering, display, memory, and game management, offering reversible settings and an intuitive WebUI.",
       "size": "0,32MB",
       "tested": "all devices working",
       "author": "VOID_ADB",
