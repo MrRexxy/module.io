@@ -57,6 +57,31 @@
       "log": "Please Tested On Your Devices, This Module Early Acces",
       "date": "12-Oktober-2026",
       "file": "file/Universal-Tuner-v0_2.zip"
+    },
+    {
+      "name": "Perf MTK",
+      "cat": "Performa untuk chipset mediatek",
+      "ver": "v17.1",
+      "android": "9-16",
+      "tested": "All device mediatek",
+      "desc": "Module performa khusus chipset mediatek",
+      "size": "0,30MB",
+      "log": "Devfreq Memory Subsytem, Display Driver Stabilization, Native SurfaceFlinger.",
+      "date": "12-Oktober-2026",
+      "file": "file/PerfMTKv17.1.zip"
+    },
+    {
+      "name": "Smart Tweak Unvirsal (ComingSoon)",
+      "cat": "Tweak Universal Chipset",
+      "author": "ModuleHub Team",
+      "ver": "v1.0",
+      "android": "10+",
+      "tested": "Sedang Dalam Uji Coba",
+      "desc": "Smart Tweak Universal Dengan Pengaman: Cek Kesiapan, BackUp Partisi, Frekuensi/OC, Dan Masih Banyak Lagi.",
+      "size": "-",
+      "log": "-",
+      "date": "-",
+      "file": "file/SmartTweakUniversal.zip"
     }
   ],
   "plugin": [
@@ -102,7 +127,7 @@
       "cat": "ADB",
       "ver": "terbaru",
       "desc": "Aplikasi plugin dengan dukungan Shizuku",
-      "url": "https://github.com/fahrez182/AxManager/releases"
+      "url": "Partisithub.com/fahrez182/AxManager/releases"
     }
   ]
 }
