@@ -129,6 +129,13 @@
       "ver": "terbaru",
       "desc": "Aplikasi plugin dengan dukungan Shizuku",
       "url": "https://github.com/fahrez182/AxManager/releases"
+    },
+    {
+      "name": "GhostLock",
+      "cat": "ADB",
+      "ver": "terbaru",
+      "desc": "Layanan pengguna shell dan pengguna shizuku, Bypass/Jailbreak KernelSU Next Dan Lainnya.",
+      "url": "https://github.com/YuKongA/ghostlock-app/releases/tag/pre-release",
     }
-  ]
+  ]     
 }
