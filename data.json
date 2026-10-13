@@ -72,17 +72,17 @@
       "file": "file/PerfMTKv17.1.zip"
     },
     {
-      "name": "Smart Tweak Unvirsal (ComingSoon)",
+      "name": "Smart Tweak Unvirsal",
       "cat": "Tweak Universal Chipset",
       "author": "ModuleHub Team",
       "ver": "v1.0",
       "android": "10+",
-      "tested": "Sedang Dalam Uji Coba",
+      "tested": "Redmi 9T",
       "desc": "Smart Tweak Universal Dengan Pengaman: Cek Kesiapan, BackUp Partisi, Frekuensi/OC, Dan Masih Banyak Lagi.",
-      "size": "-",
-      "log": "-",
-      "date": "-",
-      "file": "file/SmartTweakUniversal.zip"
+      "size": "0,25MB",
+      "log": "Work On Redmi 9T",
+      "date": "13-Oktober-2026",
+      "file": "file/Smart Tweak Universal.zip"
     }
   ],
   "plugin": [
