@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ModuleHub – Katalog Modul Magisk</title>
 <meta name="description" content="Katalog modul Magisk, plugin AX Manager, dan aplikasi root. Unduh langsung, lengkap dengan versi dan kebutuhan Android.">
-<meta name="theme-color" content="#090b14">
+<meta name="theme-color" content="#4b5bd6">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ModuleHub">
 <meta property="og:title" content="ModuleHub – Katalog Modul Magisk">
@@ -18,177 +18,172 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* GAYA BARU: NEON GLASSMORPHISM */
-:root {
-  --bg: #090b14;
-  --card: rgba(255, 255, 255, 0.04);
-  --dlg: rgba(9, 11, 20, 0.85);
-  --line: rgba(255, 255, 255, 0.08);
-  --ink: #f8fafc;
-  --mute: #94a3b8;
-  --acc: #00e1ff;
-  --accfg: #000;
-  --tag: rgba(0, 225, 255, 0.15);
-  --tagfg: #00e1ff;
-  --b1: #4f46e5;
-  --b2: #06b6d4;
-  --b3: #c026d3;
-  box-sizing: border-box;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background-color: var(--bg);
-  color: var(--ink);
-  font: 400 15px/1.6 "IBM Plex Sans", system-ui, sans-serif;
-  overflow-x: hidden;
-}
-
-/* Animasi cahaya neon di latar belakang */
-body::before {
-  content: "";
-  position: fixed;
-  inset: -20%;
-  z-index: -1;
-  pointer-events: none;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.15), transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15), transparent 40%),
-    radial-gradient(circle at 60% 80%, rgba(192, 38, 211, 0.12), transparent 40%);
-  filter: blur(40px);
-  animation: floatBG 25s ease-in-out infinite alternate;
-}
-
-@keyframes floatBG {
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(5%, 5%) scale(1.05); }
-}
-
-h1, h2, h3, .logo { font-family: "Space Grotesk", system-ui, sans-serif; margin: 0; }
-.wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-
-/* HEADER & NAVIGASI */
-header {
-  position: sticky;
-  top: env(safe-area-inset-top, 0px);
-  z-index: 20;
-  background: rgba(9, 11, 20, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--line);
-}
-header .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 65px; flex-wrap: wrap; gap: 10px; padding: 10px 20px; }
-.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-weight: 700; font-size: 20px; letter-spacing: 0.5px; }
-.logo img { border-radius: 8px; }
-nav { display: flex; flex-wrap: wrap; gap: 20px; }
-nav a { color: var(--mute); text-decoration: none; font-size: 14.5px; transition: color 0.3s; }
-nav a:hover, nav a:focus-visible { color: var(--acc); }
-
-/* HERO SECTION */
-.hero { padding: 60px 0 30px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.hero h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.15; max-width: 800px; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; color: transparent; margin-bottom: 15px; }
-.hero p { color: var(--mute); max-width: 600px; margin: 0 auto 30px; font-size: 16px; }
-
-/* TABS KATEGORI */
-.tabs { display: inline-flex; flex-wrap: wrap; gap: 8px; padding: 6px; border-radius: 99px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(12px); margin-bottom: 20px; }
-.tabs button { background: transparent; border: none; color: var(--mute); font: 500 14px "IBM Plex Sans", sans-serif; padding: 10px 20px; border-radius: 99px; cursor: pointer; transition: all 0.3s ease; }
-.tabs button:hover { color: var(--ink); }
-.tabs button[aria-pressed="true"] { background: var(--acc); color: var(--accfg); box-shadow: 0 0 15px rgba(0, 225, 255, 0.4); }
-
-/* INPUT PENCARIAN & ALAT */
-.search { display: flex; gap: 10px; width: 100%; max-width: 500px; margin-bottom: 20px; }
-input[type="search"], input.f, select, textarea { 
-  width: 100%; padding: 14px 20px; border-radius: 99px; border: 1px solid var(--line); 
-  background: rgba(255,255,255,0.03); color: var(--ink); font: inherit; 
-  backdrop-filter: blur(10px); transition: all 0.3s ease;
-}
-input[type="search"]:focus, select:focus, textarea:focus, input.f:focus { outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(0, 225, 255, 0.15); background: rgba(255,255,255,0.05); }
-.tools { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
-.tools label { font-size: 13px; color: var(--mute); display: flex; align-items: center; gap: 8px; }
-
-/* CHIPS (Filter) */
-.chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0 30px; justify-content: center; }
-.chip { padding: 8px 18px; border-radius: 99px; border: 1px solid var(--line); background: var(--card); color: var(--mute); font-size: 13px; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(10px); }
-.chip:hover { border-color: rgba(255,255,255,0.2); color: var(--ink); }
-.chip[aria-pressed="true"] { background: var(--acc); color: var(--accfg); border-color: var(--acc); box-shadow: 0 0 10px rgba(0, 225, 255, 0.3); }
-
-/* KARTU MODUL (Grid) */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding-bottom: 60px; }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-.card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0, 225, 255, 0.1), inset 0 0 0 1px rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
-.card h3 { font-size: 20px; margin: 0; }
-.card p { margin: 0; color: var(--mute); font-size: 14px; flex: 1; line-height: 1.5; }
-.meta { display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--mute); align-items: center; }
-.tag { background: var(--tag); color: var(--tagfg); border-radius: 8px; padding: 4px 10px; font-weight: 500; font-size: 12px; }
-.badge { background: var(--acc); color: var(--accfg); border-radius: 8px; padding: 4px 10px; font-size: 12px; font-weight: 600; }
-.badge.ok { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-.row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: auto; }
-.btn { background: var(--acc); color: var(--accfg); border: none; border-radius: 99px; padding: 10px 20px; font: 500 14px "IBM Plex Sans", sans-serif; text-decoration: none; cursor: pointer; transition: all 0.3s; text-align: center; box-shadow: 0 4px 15px rgba(0, 225, 255, 0.2); }
-.btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0, 225, 255, 0.4); }
-.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
-.btn.ghost:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
-.btn.sm { padding: 6px 14px; font-size: 12px; }
-.empty { grid-column: 1 / -1; text-align: center; color: var(--mute); padding: 40px 0; font-size: 16px; background: var(--card); border-radius: 20px; border: 1px dashed var(--line); backdrop-filter: blur(10px); }
-
-/* SEKSI KONTEN & FOOTER */
-.how, .don { border-top: 1px solid var(--line); padding: 50px 0; }
-.how h2, .don h2 { margin-bottom: 20px; font-size: 28px; }
-.how ol { color: var(--mute); padding-left: 20px; max-width: 600px; line-height: 1.8; }
-.don p { color: var(--mute); max-width: 600px; margin-bottom: 24px; }
-footer { border-top: 1px solid var(--line); padding: 30px 0; color: var(--mute); font-size: 14px; background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
-footer .wrap { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: space-between; }
-footer a { color: var(--acc); text-decoration: none; transition: 0.3s; }
-footer a:hover { text-shadow: 0 0 10px rgba(0, 225, 255, 0.5); }
-
-/* DIALOG (Modal Box) */
-dialog { background: var(--dlg); color: var(--ink); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 30px; max-width: 500px; width: calc(100% - 40px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-dialog::backdrop { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); }
-dialog h2 { margin-bottom: 15px; }
-dialog dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 20px; margin: 20px 0; font-size: 14px; }
-dialog dt { color: var(--mute); }
-dialog dd { margin: 0; font-weight: 500; }
-dialog label { display: block; font-size: 13px; color: var(--mute); margin: 15px 0 8px; }
-dialog textarea { border-radius: 16px; min-height: 120px; resize: vertical; }
-.warn { border: 1px solid rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.1); border-radius: 16px; padding: 16px 20px; margin: 0 0 24px; font-size: 14.5px; color: #fca5a5; backdrop-filter: blur(10px); }
-.log { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 12px 16px; font-size: 13px; color: var(--mute); margin: 0 0 20px; border: 1px solid var(--line); }
-.log.ok { color: #34d399; border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.1); }
-.shots { display: flex; gap: 10px; overflow-x: auto; margin: 15px 0; padding-bottom: 10px; }
-.shots img { height: 200px; border-radius: 12px; border: 1px solid var(--line); object-fit: cover; }
-.sha { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0 0 15px; font-size: 13px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px; border: 1px solid var(--line); }
-.sha code { flex: 1 1 100%; word-break: break-all; color: var(--acc); font-family: monospace; font-size: 12px; }
-details.guide { margin: 0 0 20px; font-size: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 16px; padding: 15px; }
-details.guide summary { cursor: pointer; font-weight: 500; color: var(--ink); outline: none; }
-details.guide ol { padding-left: 20px; color: var(--mute); margin-top: 15px; }
-.rep { margin: 20px 0 0; font-size: 13px; text-align: center; }
-.rep a { color: var(--mute); text-decoration: underline; }
-
-/* CHAT WIDGET AI */
-.chatfab { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 30; background: linear-gradient(135deg, #4f46e5, #06b6d4); color: #fff; border: 0; border-radius: 99px; padding: 14px 24px; font: 600 15px "Space Grotesk", sans-serif; cursor: pointer; box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4); transition: transform 0.3s, box-shadow 0.3s; }
-.chatfab:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(6, 182, 212, 0.6); }
-.chatpanel { position: fixed; right: 20px; bottom: calc(90px + env(safe-area-inset-bottom, 0px)); z-index: 31; width: min(400px, calc(100% - 40px)); max-height: min(600px, calc(100% - 130px)); display: flex; flex-direction: column; background: var(--dlg); border: 1px solid rgba(255,255,255,0.15); border-radius: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); transition: opacity 0.3s, transform 0.3s; }
-.chatpanel[hidden] { display: none; opacity: 0; transform: translateY(20px); }
-.chathead { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: rgba(255,255,255,0.05); border-bottom: 1px solid var(--line); font-weight: 600; font-family: "Space Grotesk", sans-serif; letter-spacing: 0.5px; }
-.chathead button { background: none; border: 0; color: var(--mute); font-size: 24px; cursor: pointer; line-height: 1; transition: color 0.3s; }
-.chathead button:hover { color: var(--ink); }
-.chatlog { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 200px; scroll-behavior: smooth; }
-.msg { max-width: 85%; padding: 12px 16px; border-radius: 20px; font-size: 14px; white-space: pre-wrap; word-break: break-word; line-height: 1.5; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-.msg.bot { background: rgba(255,255,255,0.08); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(--line); }
-.msg.me { background: linear-gradient(135deg, #4f46e5, #06b6d4); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-.chatsug { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 16px 10px; }
-.chatform { display: flex; gap: 10px; padding: 12px 16px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--line); }
-.chatform input { flex: 1; min-width: 0; background: rgba(255,255,255,0.05); padding: 12px 16px; border-radius: 99px; }
-.chatform .btn { padding: 10px 18px; }
-.chatnote { font-size: 11px; color: var(--mute); padding: 0 16px 12px; text-align: center; background: rgba(0,0,0,0.2); }
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+:root{--bg:#f3f5f8;--card:#fff;--ink:#121a28;--mute:#5d6a80;--line:#dde3ec;--acc:#b86e00;--accfg:#fff;--tag:#e3f4f1;--tagfg:#0b6b5f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1624;--card:#17202f;--ink:#e8edf5;--mute:#8f9db3;--line:#26324a;--acc:#f5b544;--accfg:#1b1300;--tag:#12332f;--tagfg:#5fd9c8}}
+:root[data-theme="dark"]{--bg:#0f1624;--card:#17202f;--ink:#e8edf5;--mute:#8f9db3;--line:#26324a;--acc:#f5b544;--accfg:#1b1300;--tag:#12332f;--tagfg:#5fd9c8}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3,.logo{font-family:"Space Grotesk",system-ui,sans-serif;margin:0}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:700;font-size:20px}
+nav a{color:var(--mute);text-decoration:none;margin-left:20px;font-size:15px}
+nav a:hover,nav a:focus-visible{color:var(--ink)}
+.hero{padding:56px 0 28px}
+.hero h1{font-size:clamp(32px,6vw,52px);line-height:1.08;max-width:15em}
+.hero p{color:var(--mute);max-width:34em;margin:14px 0 24px}
+.search{display:flex;gap:10px;max-width:520px}
+input{flex:1;min-width:0;padding:13px 16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.chip{padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:none;color:var(--mute);font:inherit;font-size:14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding-bottom:48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:18px}
+.card p{margin:0;color:var(--mute);font-size:14.5px;flex:1}
+.meta{display:flex;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+.tag{background:var(--tag);color:var(--tagfg);border-radius:6px;padding:2px 9px;font-size:13px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px}
+.btn{background:var(--acc);color:var(--accfg);border:0;border-radius:9px;padding:9px 16px;font:500 14px "IBM Plex Sans",sans-serif;text-decoration:none;cursor:pointer}
+.empty{grid-column:1/-1;color:var(--mute);padding:30px 0}
+.how{border-top:1px solid var(--line);padding:36px 0}
+.how ol{color:var(--mute);padding-left:20px;max-width:40em}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--mute);font-size:14px}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.don{border-top:1px solid var(--line);padding:36px 0 48px}
+.don p{color:var(--mute);max-width:34em}
+dialog{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:24px;max-width:460px;width:calc(100% - 32px)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+dialog dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:14px 0;font-size:15px}
+dialog dt{color:var(--mute)}dialog dd{margin:0}
+.log{background:var(--bg);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--mute);margin:0 0 18px}
+/* Gaya KernelSU: Material You + kaca cair */
+:root{--bg:#eef1fb;--card:rgba(255,255,255,.55);--dlg:rgba(255,255,255,.85);--line:rgba(255,255,255,.75);--ink:#161a2e;--mute:#566080;--acc:#4b5bd6;--accfg:#fff;--tag:rgba(75,91,214,.14);--tagfg:#3a46b5;--b1:#8fa2ff;--b2:#d49bff;--b3:#7fe0ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0e1c;--card:rgba(32,38,70,.42);--dlg:rgba(20,25,52,.85);--line:rgba(255,255,255,.13);--ink:#e6e8f7;--mute:#9aa3c4;--acc:#aab6ff;--accfg:#0e1236;--tag:rgba(170,182,255,.16);--tagfg:#c3cbff;--b1:#4d5fe8;--b2:#8a46d6;--b3:#1f9fc4}}
+:root[data-theme="dark"]{--bg:#0b0e1c;--card:rgba(32,38,70,.42);--dlg:rgba(20,25,52,.85);--line:rgba(255,255,255,.13);--ink:#e6e8f7;--mute:#9aa3c4;--acc:#aab6ff;--accfg:#0e1236;--tag:rgba(170,182,255,.16);--tagfg:#c3cbff;--b1:#4d5fe8;--b2:#8a46d6;--b3:#1f9fc4}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.7;
+background:radial-gradient(38% 38% at 20% 25%,var(--b1),transparent 70%),radial-gradient(34% 34% at 80% 20%,var(--b2),transparent 70%),radial-gradient(40% 40% at 60% 85%,var(--b3),transparent 70%)}
+@keyframes flow{to{transform:translate(6%,4%) rotate(12deg) scale(1.12)}}
+@media (prefers-reduced-motion:reduce){body::before{animation:none}}
+header{}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--card);border-bottom:1px solid var(--line)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 8px 32px rgba(10,15,50,.18),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-3px)}
+input{background:var(--card);border-radius:99px;padding:14px 20px}
+.chip{background:var(--card);border-radius:99px;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--acc);color:var(--accfg);border-color:transparent}
+.btn{border-radius:99px;padding:10px 20px}
+.btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.tag{border-radius:99px}
+dialog{background:var(--dlg);border-radius:28px;border:1px solid var(--line)}
+.log{background:var(--tag);border-radius:14px}
+.tabs{display:inline-flex;flex-wrap:wrap;max-width:100%;gap:4px;padding:4px;margin:0 0 14px;border-radius:24px;background:var(--card);border:1px solid var(--line)}
+.tabs button{border:0;background:none;color:var(--ink);font:500 15px "IBM Plex Sans",sans-serif;padding:9px 16px;border-radius:99px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--acc);color:var(--accfg)}
+.hero p#tabinfo{margin:0 0 18px}
+.warn{border:1px solid var(--acc);background:var(--tag);border-radius:16px;padding:12px 16px;margin:0 0 16px;font-size:14.5px}
+body::before{content:none}
+header{background:var(--dlg)}
+:root{--g1:rgba(143,162,255,.45);--g2:rgba(212,155,255,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:rgba(77,95,232,.35);--g2:rgba(138,70,214,.3)}}
+:root[data-theme="dark"]{--g1:rgba(77,95,232,.35);--g2:rgba(138,70,214,.3)}
+body{background:radial-gradient(60% 45% at 10% 0%,var(--g1),transparent),radial-gradient(55% 40% at 95% 8%,var(--g2),transparent),var(--bg)}
+.how,.don,footer{border-color:var(--line)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 0}
+.tools label{font-size:13px;color:var(--mute);display:flex;align-items:center;gap:6px}
+select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:7px 12px;font:inherit;font-size:14px}
+select:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.badge{background:var(--acc);color:var(--accfg);border-radius:99px;padding:1px 9px;font-size:12px;font-weight:500}
+.badge.ok{background:var(--tag);color:var(--tagfg)}
+.row{flex-wrap:wrap}
+.btn.sm{padding:5px 12px;font-size:13px}
+.shots{display:flex;gap:8px;overflow-x:auto;margin:10px 0}
+.shots img{height:180px;border-radius:12px;border:1px solid var(--line)}
+.sha{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px;font-size:13px}
+.sha code{flex:1 1 100%;word-break:break-all;color:var(--mute);font-size:12px}
+details.guide{margin:0 0 14px;font-size:14.5px}
+details.guide summary{cursor:pointer;font-weight:500}
+details.guide ol{padding-left:20px;color:var(--mute)}
+#cmt{margin:0 0 14px}
+dialog{max-width:520px;max-height:calc(100% - 24px)}
+.rep{margin:12px 0 0;font-size:13.5px}
+.rep a,footer a{color:var(--mute)}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-weight:700}
+.logo img{border-radius:8px}
+.chatfab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--acc);color:var(--accfg);border:0;border-radius:99px;padding:12px 18px;font:500 15px "IBM Plex Sans",system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(10,15,50,.3)}
+.chatpanel{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:31;width:min(380px,calc(100% - 32px));max-height:min(560px,calc(100% - 110px));display:flex;flex-direction:column;background:var(--dlg);color:var(--ink);border:1px solid var(--line);border-radius:24px;box-shadow:0 12px 36px rgba(10,15,50,.35);overflow:hidden}
+.chatpanel[hidden]{display:none}
+.chathead{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font-weight:600}
+.chathead button{background:none;border:0;color:var(--mute);font-size:20px;cursor:pointer;line-height:1}
+.chatlog{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-height:160px}
+.msg{max-width:88%;padding:9px 13px;border-radius:18px;font-size:14.5px;white-space:pre-wrap;word-break:break-word}
+.msg.bot{background:var(--tag);align-self:flex-start}
+.msg.me{background:var(--acc);color:var(--accfg);align-self:flex-end}
+.chatsug{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 8px}
+.chatform{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.chatform input{flex:1;min-width:0}
+.chatnote{font-size:12px;color:var(--mute);padding:0 14px 10px}
+dialog label{display:block;font-size:13px;color:var(--mute);margin:10px 0 4px}
+dialog textarea,dialog select,dialog input.f{width:100%;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:10px 12px;font:inherit;font-size:14.5px}
+dialog textarea{min-height:110px;resize:vertical}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.ok{color:var(--tagfg)}
+.chatpanel{background:var(--bg)}
+header .wrap{height:auto;min-height:60px;flex-wrap:wrap;gap:4px 12px;padding-top:8px;padding-bottom:8px}
+nav{display:flex;flex-wrap:wrap}
+nav a{white-space:nowrap;margin-left:14px}
+/* ===== Animasi gaya iOS ===== */
+:root{--ios:cubic-bezier(.32,.72,0,1);--spring:cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeOut{to{opacity:0}}
+@keyframes spoke{from{opacity:1}to{opacity:.15}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+@keyframes sheetIn{from{opacity:0;transform:translateY(40px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes sheetOut{to{opacity:0;transform:translateY(30px) scale(.97)}}
+@keyframes btnpop{from{transform:scale(.94)}to{transform:none}}
+#splash{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:radial-gradient(60% 40% at 10% 0%,var(--g1),transparent),radial-gradient(55% 35% at 95% 6%,var(--g2),transparent),var(--bg);transition:opacity .45s var(--ios),transform .45s var(--ios)}
+#splash.out{opacity:0;transform:scale(1.06);pointer-events:none}
+.splash-in{display:flex;flex-direction:column;align-items:center;gap:14px}
+.splash-in img{border-radius:24px;animation:pop .8s var(--spring) both;box-shadow:0 14px 40px rgba(75,91,214,.35)}
+.splash-name{font:700 24px "Space Grotesk",system-ui,sans-serif;animation:rise .7s .15s var(--ios) both}
+.ios-spin{position:relative;width:28px;height:28px;margin-top:10px;animation:fadeIn .5s .3s both}
+.ios-spin i{position:absolute;left:50%;top:0;width:2.5px;height:8px;margin-left:-1.25px;border-radius:2px;background:var(--mute);transform-origin:50% 14px;transform:rotate(calc(var(--n)*30deg));opacity:.15;animation:spoke 1s linear infinite;animation-delay:calc(var(--n)*-.0833s)}
+.sk{pointer-events:none}
+.sk i{display:block;height:14px;border-radius:8px;background:linear-gradient(90deg,var(--tag) 25%,var(--line) 50%,var(--tag) 75%);background-size:200% 100%;animation:shimmer 1.3s linear infinite}
+.grid.enter .card{animation:rise .6s var(--ios) backwards;animation-delay:calc(var(--i,0)*50ms)}
+.card{transition:transform .45s var(--ios),box-shadow .45s var(--ios)}
+.card:active{transform:scale(.985)}
+.btn,.chip,.tabs button,.prof{transition:transform .25s var(--ios),background-color .25s,opacity .25s}
+.btn:active,.chip:active,.tabs button:active{transform:scale(.94)}
+.btn.dling{pointer-events:none;animation:btnpop .4s var(--spring)}
+.spin-s{display:inline-block;width:12px;height:12px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:4px}
+dialog[open]{animation:sheetIn .5s var(--ios)}
+dialog[open]::backdrop{animation:fadeIn .35s ease}
+dialog.closing{animation:sheetOut .24s cubic-bezier(.4,0,1,1) forwards}
+dialog.closing::backdrop{animation:fadeOut .24s ease forwards}
+.chatpanel:not([hidden]){animation:pop .4s var(--ios);transform-origin:bottom right}
+.chatfab{transition:transform .3s var(--spring)}
+.chatfab:active{transform:scale(.92)}
+.msg{animation:rise .35s var(--ios) backwards}
+@media (max-width:600px){dialog{margin:auto auto calc(12px + env(safe-area-inset-bottom,0px))}}
+.toast{inset:auto;top:calc(14px + env(safe-area-inset-top,0px));left:50%;margin:0;border:0;position:fixed;transform:translate(-50%,-160%);opacity:0;background:rgba(28,30,44,.94);color:#fff;border-radius:99px;padding:10px 18px;font:500 14px "IBM Plex Sans",system-ui,sans-serif;max-width:calc(100% - 32px);box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .55s var(--spring),opacity .3s;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toast.show{transform:translate(-50%,0);opacity:1}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
+<div id="splash" aria-hidden="true"><div class="splash-in"><img src="icon-192.png" alt="" width="96" height="96"><div class="splash-name">ModuleHub</div><div class="ios-spin"><i style="--n:0"></i><i style="--n:1"></i><i style="--n:2"></i><i style="--n:3"></i><i style="--n:4"></i><i style="--n:5"></i><i style="--n:6"></i><i style="--n:7"></i><i style="--n:8"></i><i style="--n:9"></i><i style="--n:10"></i><i style="--n:11"></i></div></div></div>
+<noscript><style>#splash{display:none}</style></noscript>
+<div class="toast" id="toast" popover="manual" role="status" aria-live="polite"></div>
 <header><div class="wrap"><a class="logo" href="./"><img src="icon-192.png" alt="" width="32" height="32"> ModuleHub</a><nav><a href="#katalog">Katalog</a><a href="#cara">Cara pasang</a><a href="#tentang" id="navt" hidden>Tentang</a><a href="#donasi">Donasi</a></nav></div></header>
 
 <main class="wrap">
@@ -207,7 +202,7 @@ details.guide ol { padding-left: 20px; color: var(--mute); margin-top: 15px; }
 
 <div class="warn" id="warn" role="note" hidden><strong>Peringatan:</strong> selalu unduh aplikasi dari situs resminya (misalnya halaman rilis resmi di GitHub). APK dari sumber tidak dikenal bisa berisi malware atau sudah dimodifikasi. Aplikasi root punya akses penuh ke perangkatmu, jadi periksa dulu sumbernya sebelum memasang.</div>
 <div class="chips" id="chips"></div>
-<div class="grid" id="katalog"></div>
+<div class="grid" id="katalog"><article class="card sk" aria-hidden="true"><i style="width:55%;height:18px"></i><i></i><i style="width:80%"></i><i style="width:40%;margin-top:10px;height:34px;border-radius:99px"></i></article><article class="card sk" aria-hidden="true"><i style="width:55%;height:18px"></i><i></i><i style="width:80%"></i><i style="width:40%;margin-top:10px;height:34px;border-radius:99px"></i></article><article class="card sk" aria-hidden="true"><i style="width:55%;height:18px"></i><i></i><i style="width:80%"></i><i style="width:40%;margin-top:10px;height:34px;border-radius:99px"></i></article></div>
 
 <section class="how" id="cara">
 <h2>Cara memasang modul</h2>
@@ -264,7 +259,33 @@ apk:["Unduh APK dari situs resminya.","Izinkan pemasangan dari sumber ini bila d
 var BOOT="Jika perangkat bootloop setelah memasang modul: masuk Mode Aman atau TWRP, lalu hapus folder modul di /data/adb/modules/ dan mulai ulang.";
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function mk(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+var T0=Date.now();
+function endSplash(){
+ var sp=$("splash");if(!sp||sp.dataset.done)return;sp.dataset.done="1";
+ var red=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+ setTimeout(function(){sp.classList.add("out");setTimeout(function(){sp.remove()},red?0:500)},red?0:Math.max(0,900-(Date.now()-T0)))}
+setTimeout(endSplash,7000);
+function shut(d){
+ if(!d.open||d.classList.contains("closing"))return;
+ var f=function(){d.classList.remove("closing");d.close()};
+ if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)return f();
+ d.classList.add("closing");setTimeout(f,240)}
+var toastT=0;
+function toast(msg){
+ var t=$("toast");t.textContent=msg;
+ try{if(t.showPopover&&!t.matches(":popover-open"))t.showPopover()}catch(e){}
+ void t.offsetWidth;t.classList.add("show");
+ clearTimeout(toastT);
+ toastT=setTimeout(function(){t.classList.remove("show");setTimeout(function(){try{if(t.hidePopover)t.hidePopover()}catch(e){}},450)},2400)}
+document.addEventListener("click",function(e){
+ var a=e.target.closest("a.btn[download]");if(!a||a.dataset.busy)return;
+ a.dataset.busy="1";var old=a.innerHTML,nm=decodeURIComponent((a.getAttribute("href")||"").split("/").pop()||"").slice(0,40);
+ a.classList.add("dling");a.innerHTML='<span class="spin-s"></span>Memulai…';
+ toast("Unduhan dimulai"+(nm?": "+nm:""));
+ setTimeout(function(){a.innerHTML="✓ Dimulai"},1100);
+ setTimeout(function(){a.classList.remove("dling");a.innerHTML=old;delete a.dataset.busy},2700)});
 function uniq(a){return a.filter(function(c,i,x){return x.indexOf(c)===i})}
+// Tombol unduh: pakai "file" (di situs ini) atau "url" (situs lain). Kosong = Segera hadir.
 function dl(m){var l=m.file||m.url;return l?'<a class="btn" href="'+esc(l)+'" download>Unduh '+NOUN+'</a>':'<span class="btn ghost">Segera hadir</span>'}
 function isNew(m){if(!m.date)return false;var d=Date.parse(m.date);return !isNaN(d)&&(Date.now()-d)/864e5<=14}
 function fmt(m){var d=Date.parse(m.date);return m.date&&!isNaN(d)?new Date(d).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}):""}
@@ -285,9 +306,10 @@ return true});
 if(sortS.value==="nama")arr.sort(function(a,b){return a.m.name.localeCompare(b.m.name)});
 else arr.sort(function(a,b){var da=a.m.date?Date.parse(a.m.date):-Infinity,db=b.m.date?Date.parse(b.m.date):-Infinity;if(isNaN(da))da=-Infinity;if(isNaN(db))db=-Infinity;return(db-da)||(a.i-b.i)});
 return arr}
-function draw(){
+function draw(anim){
+box.classList.toggle("enter",!!anim);
 var arr=filtered();
-box.innerHTML=arr.length?arr.map(function(x){var m=x.m;return '<article class="card"><div class="row"><h3>'+esc(m.name)+'</h3><span class="tag">'+esc(m.cat)+'</span></div><p>'+esc(m.desc)+'</p><div class="meta">'+(m.ver?'<span>'+esc(m.ver)+'</span>':'')+(m.android?'<span>Android '+esc(m.android)+'</span>':'')+(m.axmin?'<span>AX Manager '+esc(m.axmin)+'</span>':'')+badges(m)+'</div><div class="row"><button class="btn ghost" data-i="'+x.i+'">Detail</button><button class="btn ghost" data-s="'+x.i+'">Bagikan</button>'+dl(m)+'</div></article>'}).join(""):'<div class="empty">'+(LIST.length?'Tidak ada yang cocok. Coba kata kunci lain, ubah filter, atau pilih kategori Semua.':'Belum ada '+NOUN+' di sini. Segera hadir.')+'</div>'}
+box.innerHTML=arr.length?arr.map(function(x,ix){var m=x.m;return '<article class="card" style="--i:'+Math.min(ix,10)+'"><div class="row"><h3>'+esc(m.name)+'</h3><span class="tag">'+esc(m.cat)+'</span></div><p>'+esc(m.desc)+'</p><div class="meta">'+(m.ver?'<span>'+esc(m.ver)+'</span>':'')+(m.android?'<span>Android '+esc(m.android)+'</span>':'')+(m.axmin?'<span>AX Manager '+esc(m.axmin)+'</span>':'')+badges(m)+'</div><div class="row"><button class="btn ghost" data-i="'+x.i+'">Detail</button><button class="btn ghost" data-s="'+x.i+'">Bagikan</button>'+dl(m)+'</div></article>'}).join(""):'<div class="empty">'+(LIST.length?'Tidak ada yang cocok. Coba kata kunci lain, ubah filter, atau pilih kategori Semua.':'Belum ada '+NOUN+' di sini. Segera hadir.')+'</div>'}
 function reportUrl(m,gh){
 if(DATA.laporan&&!gh)return DATA.laporan;
 var h=location.hostname,p=location.pathname.split("/")[1];
@@ -311,7 +333,7 @@ var guide='<details class="guide"><summary>Cara pasang</summary>'+(m.guide?'<p>'
 dlg.innerHTML='<h2 id="dt">'+esc(m.name)+'</h2><div class="meta">'+badges(m)+'</div><dl>'+rows+'</dl>'+shots+'<p>'+esc(m.desc)+'</p><p class="log">'+esc(m.log||"Belum ada catatan perubahan.")+'</p>'+sha+guide+'<div id="cmt"></div><div class="row"><button class="btn ghost" id="cl">Tutup</button><button class="btn ghost" id="sh">Bagikan</button>'+dl(m)+'</div>'+((reportUrl(m)||CHAT)?'<p class="rep"><a href="'+esc(reportUrl(m)||"#")+'" target="_blank" rel="noopener">Menemukan masalah? Laporkan</a></p>':'');
 dlg.showModal();
 var ra=dlg.querySelector(".rep a");if(ra&&CHAT)ra.onclick=function(e){e.preventDefault();openReport(m,"")};
-$("cl").onclick=function(){dlg.close()};
+$("cl").onclick=function(){shut(dlg)};
 $("sh").onclick=function(){share(m,$("sh"))};
 var g=DATA.giscus;
 if(g&&g.repo&&g.repoId&&g.category&&g.categoryId){
@@ -326,20 +348,21 @@ if(ask&&t==="apk"&&b.getAttribute("aria-pressed")!=="true")wdlg.showModal();
 LIST={modul:MODULES,plugin:PLUGINS,apk:APKS}[t];NOUN=t;cat="Semua";q.value="";setCats();
 [].forEach.call(tabs.children,function(x){x.setAttribute("aria-pressed",x===b)});
 info.textContent=INFO[t];$("warn").hidden=t!=="apk";
-q.placeholder="Cari "+t+(LIST[0]?", mis. "+LIST[0].name:"");drawChips();draw()}
+q.placeholder="Cari "+t+(LIST[0]?", mis. "+LIST[0].name:"");drawChips();draw(true)}
 chips.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;cat=b.dataset.c;drawChips();draw()});
-q.addEventListener("input",draw);
-[sortS,avS,chS].forEach(function(el){el.addEventListener("change",draw)});
+q.addEventListener("input",function(){draw()});
+[sortS,avS,chS].forEach(function(el){el.addEventListener("change",function(){draw()})});
 tabs.addEventListener("click",function(e){var b=e.target.closest("button");if(b)setTab(b.dataset.t,true)});
 box.addEventListener("click",function(e){
 var b=e.target.closest("button[data-i]");if(b){openDetail(+b.dataset.i);return}
 b=e.target.closest("button[data-s]");if(b)share(LIST[+b.dataset.s],b)});
 dlg.addEventListener("click",function(e){
-if(e.target===dlg){dlg.close();return}
+if(e.target===dlg){shut(dlg);return}
 var c=e.target.closest("[data-copy]");
 if(c&&navigator.clipboard){navigator.clipboard.writeText(c.dataset.copy).then(function(){c.textContent="Tersalin";setTimeout(function(){c.textContent="Salin"},1500)})}});
-$("wok").onclick=function(){wdlg.close()};
-wdlg.addEventListener("click",function(e){if(e.target===wdlg)wdlg.close()});
+$("wok").onclick=function(){shut(wdlg)};
+[dlg,wdlg,$("rdlg")].forEach(function(d){d.addEventListener("cancel",function(e){e.preventDefault();shut(d)})});
+wdlg.addEventListener("click",function(e){if(e.target===wdlg)shut(wdlg)});
 var dp=null;
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;$("inst").hidden=false});
 $("inst").onclick=function(){if(dp){dp.prompt();dp=null;$("inst").hidden=true}};
@@ -358,8 +381,8 @@ function openReport(m,text){
  if(dlg.open)dlg.close();$("rdlg").showModal()}
 $("chatfab").onclick=function(){openChat($("chatpanel").hidden)};
 $("chatclose").onclick=function(){openChat(false)};
-$("rcancel").onclick=function(){$("rdlg").close()};
-$("rdlg").addEventListener("click",function(e){if(e.target===$("rdlg"))$("rdlg").close()});
+$("rcancel").onclick=function(){shut($("rdlg"))};
+$("rdlg").addEventListener("click",function(e){if(e.target===$("rdlg"))shut($("rdlg"))});
 $("chatform").addEventListener("submit",function(e){
  e.preventDefault();var v=$("chatin").value.trim();if(!v||!CHAT)return;
  $("chatin").value="";lastUser=v;addMsg(v,"me");setSug(false);
@@ -381,7 +404,7 @@ $("rform").addEventListener("submit",function(e){
  .then(function(x){
   if(!x.ok||!x.j.ok)throw new Error(x.j&&x.j.error||"gagal");
   msg.className="log ok";msg.textContent="Terima kasih! Laporanmu sudah terkirim ke tim"+(x.j.number?" (laporan #"+x.j.number+")":"")+".";
-  setTimeout(function(){$("rdlg").close()},2500)})
+  setTimeout(function(){shut($("rdlg"))},2500)})
  .catch(function(err){
   msg.className="log";msg.textContent=(err.message&&err.message!=="gagal"&&!(err instanceof TypeError)?err.message+" ":"")+"Laporan belum terkirim. ";
   var gh=reportUrl(null,true);if(gh){var a=mk("a","","Buka di GitHub");a.href=gh;a.target="_blank";a.rel="noopener";msg.appendChild(a)}
@@ -398,7 +421,8 @@ if(d.goatcounter){var gc=document.createElement("script");gc.async=true;gc.src="
 var P=new URLSearchParams(location.search),t=P.get("t"),n=P.get("n");
 setTab({modul:1,plugin:1,apk:1}[t]?t:"modul",false);
 if(n){var idx=LIST.findIndex(function(m){return m.name===n});if(idx>-1)openDetail(idx)}
-}).catch(function(){box.innerHTML='<div class="empty">Gagal memuat data.json. Pastikan file ada di folder yang sama dengan index.html dan buka lewat alamat situs, bukan langsung dari file.</div>'});
+endSplash();
+}).catch(function(){endSplash();box.innerHTML='<div class="empty">Gagal memuat data.json. Pastikan file ada di folder yang sama dengan index.html dan buka lewat alamat situs, bukan langsung dari file.</div>'});
 </script>
 </body>
 </html>
