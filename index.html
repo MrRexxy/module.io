@@ -135,6 +135,10 @@ dialog textarea{min-height:110px;resize:vertical}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .ok{color:var(--tagfg)}
 .chatpanel{background:var(--bg)}
+.webtog{display:flex;align-items:center;gap:8px;padding:0 14px 8px;font-size:13px;color:var(--mute);cursor:pointer}
+.webtog input{accent-color:var(--acc);width:16px;height:16px}
+.src{font-size:12px;color:var(--mute);padding:0 6px;align-self:flex-start;max-width:92%;word-break:break-word}
+.src a{color:var(--acc);margin-right:8px}
 header .wrap{height:auto;min-height:60px;flex-wrap:wrap;gap:4px 12px;padding-top:8px;padding-bottom:8px}
 nav{display:flex;flex-wrap:wrap}
 nav a{white-space:nowrap;margin-left:14px}
@@ -230,8 +234,9 @@ dialog.closing::backdrop{animation:fadeOut .24s ease forwards}
 <div class="chathead"><span>Asisten ModuleHub</span><button id="chatclose" aria-label="Tutup">×</button></div>
 <div class="chatlog" id="chatlog" aria-live="polite"></div>
 <div class="chatsug" id="chatsug"></div>
+<label class="webtog" id="webtog" hidden><input type="checkbox" id="webon"> 🌐 Cari di internet</label>
 <form class="chatform" id="chatform"><input id="chatin" maxlength="500" placeholder="Tulis pertanyaanmu..." autocomplete="off" aria-label="Pertanyaan"><button class="btn pri" id="chatsend" type="submit">Kirim</button></form>
-<div class="chatnote">Jawaban AI bisa keliru. Cadangkan data sebelum memasang modul.</div>
+<div class="chatnote" id="chatnote">Jawaban AI bisa keliru. Cadangkan data sebelum memasang modul.</div>
 </section>
 <dialog id="rdlg" aria-labelledby="rt"><h2 id="rt">Laporkan masalah</h2>
 <form id="rform">
@@ -371,6 +376,16 @@ var CHAT="";
 var BUGRE=/error|gagal|bug|crash|bootloop|boot loop|force close|tidak bisa|ga bisa|gak bisa|nggak bisa|tidak jalan|ga jalan|macet|hang|restart sendiri|rusak/i;
 var hist=[],lastUser="";
 function addMsg(t,who){var d=mk("div","msg "+who,t);$("chatlog").appendChild(d);$("chatlog").scrollTop=$("chatlog").scrollHeight;return d}
+var WEBNOTE={batas:"Batas pencarian internet tercapai, jawaban tanpa data terbaru.",gagal:"Pencarian internet gagal, jawaban tanpa data terbaru.",kosong:"Tidak ada hasil internet yang relevan.",belum_aktif:"Pencarian internet belum diaktifkan oleh pemilik situs."};
+function addSrc(j){
+ if(!$("webon").checked)return;
+ var box=mk("div","src"),n=0;
+ (j.sources||[]).slice(0,4).forEach(function(x){
+  try{var u=new URL(x.url);if(u.protocol!=="https:"&&u.protocol!=="http:")return;
+   var a=mk("a","",u.hostname.replace(/^www\./,""));a.href=u.href;a.target="_blank";a.rel="noopener noreferrer";a.title=String(x.title||"").slice(0,120);
+   if(!n)box.appendChild(document.createTextNode("Sumber: "));box.appendChild(a);n++}catch(e){}});
+ if(!n&&WEBNOTE[j.web])box.textContent=WEBNOTE[j.web];
+ if(box.childNodes.length){$("chatlog").appendChild(box);$("chatlog").scrollTop=$("chatlog").scrollHeight}}
 function setSug(show){var b=$("chatsug");b.textContent="";if(!show)return;var x=mk("button","btn sm","Kirim laporan ke tim");x.onclick=function(){openReport(null,lastUser)};b.appendChild(x)}
 function openChat(open){$("chatpanel").hidden=!open;$("chatfab").setAttribute("aria-expanded",open);if(open){if(!$("chatlog").children.length)addMsg("Halo! Aku asisten ModuleHub. Tanyakan soal modul, cara pasang, atau masalah yang kamu alami.","bot");$("chatin").focus()}}
 function openReport(m,text){
@@ -388,13 +403,13 @@ $("chatform").addEventListener("submit",function(e){
  $("chatin").value="";lastUser=v;addMsg(v,"me");setSug(false);
  hist.push({role:"user",content:v});hist=hist.slice(-8);
  var wait=addMsg("Mengetik...","bot");$("chatsend").disabled=true;
- fetch(CHAT+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:hist})})
+ fetch(CHAT+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:hist,web:$("webon").checked})})
  .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})
  .then(function(x){
   if(!x.ok||!x.j.reply)throw new Error(x.j&&x.j.error||"gagal");
-  wait.textContent=x.j.reply;hist.push({role:"assistant",content:x.j.reply});hist=hist.slice(-8);
+  wait.textContent=x.j.reply;addSrc(x.j);hist.push({role:"assistant",content:x.j.reply});hist=hist.slice(-8);
   setSug(BUGRE.test(v))})
- .catch(function(){wait.textContent="Asisten sedang sibuk atau tidak bisa dihubungi. Coba lagi nanti, atau gunakan tombol Laporkan masalah.";setSug(BUGRE.test(v))})
+ .catch(function(err){wait.textContent=(err instanceof TypeError)?"Tidak bisa terhubung ke asisten. Pemilik situs: periksa alamat Worker di data.json dan variabel SITE_ORIGIN di Cloudflare.":((err.message&&err.message!=="gagal")?err.message:"Asisten sedang sibuk. Coba lagi nanti, atau gunakan tombol Laporkan masalah.");setSug(BUGRE.test(v))})
  .then(function(){$("chatsend").disabled=false;$("chatlog").scrollTop=$("chatlog").scrollHeight})});
 $("rform").addEventListener("submit",function(e){
  e.preventDefault();var msg=$("rmsg");msg.hidden=false;msg.className="log";msg.textContent="Mengirim...";$("rsend").disabled=true;
@@ -413,6 +428,7 @@ fetch("data.json").then(function(r){return r.json()}).then(function(d){
 DATA=d;MODULES=d.modul||[];PLUGINS=d.plugin||[];APKS=d.apk||[];
 var rl=reportUrl(null);if(rl||d.chat){var ra=$("rep");ra.href=rl||"#";ra.hidden=false}
 CHAT=(d.chat||"").replace(/\/+$/,"");
+if(CHAT&&d.web){$("webtog").hidden=false;$("chatnote").textContent+=" Dengan pencarian internet aktif, pertanyaanmu dikirim ke layanan pencarian pihak ketiga."}
 if(CHAT){$("chatfab").hidden=false;$("rep").addEventListener("click",function(e){e.preventDefault();openReport(null,"")})}
 var dn=document.querySelector("#donasi .btn");
 if(d.donasi){dn.href=d.donasi}else{$("donasi").hidden=true;var na=document.querySelector('nav a[href="#donasi"]');if(na)na.hidden=true}
