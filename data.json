@@ -84,6 +84,30 @@
       "log": "Work On Redmi 9T",
       "date": "13-Oktober-2026",
       "file": "file/Smart Tweak Universal.zip"
+    },
+    {
+      "name": "Redmi 9T OverClock",
+      "cat": "OverClock Redmi 9T",
+      "author": "ModuleHub Team",
+      "ver": "v5.0",
+      "android": "10+",
+      "desc": "Boost Your CPU & GPU To Max Freq, Disable All Thermal & Disable Kernel Thermal",
+      "size": "0,17mb",
+      "log": "Work On Redmi 9T",
+      "date": "04-Oktober-2026",
+      "file": "file/Redmi 9T OC.zip"
+    },
+    {
+      "name": "Vulkan Driver",
+      "cat": "Enable Vulkan Driver",
+      "author": "ModuleHub Team",
+      "ver": "v1.0",
+      "android": "10+",
+      "desc": "Enable Vulkan Driver",
+      "size": "0,10mb",
+      "log": "Tested On Device Support Vulkan Driver V.1",
+      "date": "04-Oktober-2026",
+      "file": "file/vulkan_driver.zip"
     }
   ],
   "plugin": [
