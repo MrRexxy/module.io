@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ModuleHub – Katalog Modul Magisk</title>
-<meta name="description" content="Katalog modul Magisk, plugin AX Manager, dan aplikasi root. Unduh langsung, lengkap dengan versi dan kebutuhan Android.">
+<title>ModuleHub – Katalog Modul Magisk & File Redmi 9T</title>
+<meta name="description" content="Katalog modul Magisk, plugin AX Manager, aplikasi root, dan file Redmi 9T. Unduh langsung, lengkap dengan versi dan kebutuhan Android.">
 <meta name="theme-color" content="#4b5bd6">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ModuleHub">
-<meta property="og:title" content="ModuleHub – Katalog Modul Magisk">
-<meta property="og:description" content="Modul Magisk, plugin AX Manager, dan aplikasi root. Unduh langsung dari satu tempat.">
+<meta property="og:title" content="ModuleHub – Katalog Modul Magisk & File Redmi 9T">
+<meta property="og:description" content="Modul Magisk, plugin AX Manager, aplikasi root, dan file Redmi 9T. Unduh langsung dari satu tempat.">
 <meta property="og:url" content="https://mrrexxy.github.io/module.io/">
 <meta property="og:image" content="https://mrrexxy.github.io/module.io/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -194,7 +194,12 @@ dialog.closing::backdrop{animation:fadeOut .24s ease forwards}
 <section class="hero">
 <h1>Modul Magisk yang rapi dan mudah dicari</h1>
 <p>Cari modul untuk perangkat root kamu, lihat versi dan kebutuhan Android, lalu unduh langsung.</p>
-<div class="tabs" id="tabs"><button data-t="modul" aria-pressed="true">Modul Root</button><button data-t="plugin" aria-pressed="false">Plugin AX Manager</button><button data-t="apk" aria-pressed="false">Aplikasi (APK)</button></div>
+<div class="tabs" id="tabs">
+  <button data-t="modul" aria-pressed="true">Modul Root</button>
+  <button data-t="plugin" aria-pressed="false">Plugin AX Manager</button>
+  <button data-t="apk" aria-pressed="false">Aplikasi (APK)</button>
+  <button data-t="redmi9t" aria-pressed="false">File Redmi 9T</button>
+</div>
 <p id="tabinfo" style="margin-top:0">Modul untuk perangkat root Magisk.</p>
 <div class="search"><input id="q" type="search" placeholder="Cari modul, mis. LSPosed" aria-label="Cari"></div>
 <div class="tools">
@@ -242,7 +247,7 @@ dialog.closing::backdrop{animation:fadeOut .24s ease forwards}
 <form id="rform">
 <label for="rmod">Modul atau bagian yang bermasalah</label><select id="rmod"></select>
 <label for="rdesc">Apa yang terjadi?</label><textarea id="rdesc" maxlength="1500" required placeholder="Ceritakan masalahnya: apa yang kamu lakukan dan apa hasilnya."></textarea>
-<label for="rdev">Perangkat, versi Android, dan aplikasi root (opsional)</label><input class="f" id="rdev" maxlength="200" placeholder="mis. Redmi Note 9T, Android 12, Magisk 27">
+<label for="rdev">Perangkat, versi Android, dan aplikasi root (opsional)</label><input class="f" id="rdev" maxlength="200" placeholder="mis. Redmi 9T, Android 12, Magisk 27">
 <input class="hp" id="rhp" tabindex="-1" autocomplete="off" aria-hidden="true">
 <p class="log" id="rmsg" hidden></p>
 <div class="row" style="margin-top:14px"><button type="button" class="btn ghost" id="rcancel">Batal</button><button class="btn pri" id="rsend" type="submit">Kirim laporan</button></div>
@@ -253,14 +258,28 @@ dialog.closing::backdrop{animation:fadeOut .24s ease forwards}
 <footer><div class="wrap">Pasang modul dengan risiko sendiri. Cadangkan data sebelum memodifikasi perangkat. Unduh aplikasi hanya dari situs resminya. <a id="rep" href="#" target="_blank" rel="noopener" hidden>Laporkan masalah</a> <button class="btn ghost sm" id="inst" hidden>Pasang sebagai aplikasi</button></div></footer>
 
 <script>
-var DATA={},MODULES=[],PLUGINS=[],APKS=[],LIST=[],NOUN="modul",cats=[],cat="Semua";
+var DATA={},MODULES=[],PLUGINS=[],APKS=[],REDMI9T=[],LIST=[],NOUN="modul",cats=[],cat="Semua";
 function $(i){return document.getElementById(i)}
 var box=$("katalog"),chips=$("chips"),q=$("q"),sortS=$("sort"),avS=$("av"),chS=$("chip"),chL=$("chipL"),dlg=$("dlg"),wdlg=$("wdlg"),tabs=$("tabs"),info=$("tabinfo");
-var INFO={modul:"Modul untuk perangkat root Magisk.",plugin:"Plugin khusus AX Manager. Dipisah dari modul root agar mudah dicari.",apk:"Aplikasi manajer root, seperti Magisk, KernelSU Next, dan AX Manager."};
+var INFO={
+  modul:"Modul untuk perangkat root Magisk.",
+  plugin:"Plugin khusus AX Manager. Dipisah dari modul root agar mudah dicari.",
+  apk:"Aplikasi manajer root, seperti Magisk, KernelSU Next, dan AX Manager.",
+  redmi9t:"Kumpulan file khusus Redmi 9T (lime): Custom ROM, Kernel, Recovery (TWRP/OrangeFox), Firmware, dan lainnya."
+};
 var GUIDE={
-modul:["Unduh file modul (.zip).","Buka aplikasi root-mu (Magisk, KernelSU, atau sejenisnya) lalu masuk ke tab Modul.","Pilih pasang dari penyimpanan, lalu pilih file .zip tadi.","Mulai ulang perangkat setelah selesai."],
-plugin:["Unduh file plugin.","Pasang lewat AX Manager sesuai petunjuk plugin tersebut.","Mulai ulang aplikasi atau perangkat bila diminta."],
-apk:["Unduh APK dari situs resminya.","Izinkan pemasangan dari sumber ini bila diminta.","Buka file APK lalu ketuk Pasang."]};
+  modul:["Unduh file modul (.zip).","Buka aplikasi root-mu (Magisk, KernelSU, atau sejenisnya) lalu masuk ke tab Modul.","Pilih pasang dari penyimpanan, lalu pilih file .zip tadi.","Mulai ulang perangkat setelah selesai."],
+  plugin:["Unduh file plugin.","Pasang lewat AX Manager sesuai petunjuk plugin tersebut.","Mulai ulang aplikasi atau perangkat bila diminta."],
+  apk:["Unduh APK dari situs resminya.","Izinkan pemasangan dari sumber ini bila diminta.","Buka file APK lalu ketuk Pasang."],
+  redmi9t:["Unduh file Redmi 9T yang dibutuhkan (pastikan sesuai dengan codename lime).","Cadangkan data penting sebelum melakukan flashing.","Pasang/flash file melalui Custom Recovery (TWRP/OrangeFox) atau Fastboot sesuai jenis filenya.","Mulai ulang perangkat setelah proses selesai."]
+};
+var LABEL={modul:"modul",plugin:"plugin",apk:"aplikasi",redmi9t:"file"};
+var PLACEHOLDER={
+  modul:"Cari modul, mis. LSPosed",
+  plugin:"Cari plugin AX Manager...",
+  apk:"Cari aplikasi, mis. Magisk",
+  redmi9t:"Cari file Redmi 9T, mis. TWRP, Kernel, ROM..."
+};
 var BOOT="Jika perangkat bootloop setelah memasang modul: masuk Mode Aman atau TWRP, lalu hapus folder modul di /data/adb/modules/ dan mulai ulang.";
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function mk(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
@@ -291,7 +310,7 @@ document.addEventListener("click",function(e){
  setTimeout(function(){a.classList.remove("dling");a.innerHTML=old;delete a.dataset.busy},2700)});
 function uniq(a){return a.filter(function(c,i,x){return x.indexOf(c)===i})}
 // Tombol unduh: pakai "file" (di situs ini) atau "url" (situs lain). Kosong = Segera hadir.
-function dl(m){var l=m.file||m.url;return l?'<a class="btn" href="'+esc(l)+'" download>Unduh '+NOUN+'</a>':'<span class="btn ghost">Segera hadir</span>'}
+function dl(m){var l=m.file||m.url,lb=LABEL[NOUN]||NOUN;return l?'<a class="btn" href="'+esc(l)+'" download>Unduh '+lb+'</a>':'<span class="btn ghost">Segera hadir</span>'}
 function isNew(m){if(!m.date)return false;var d=Date.parse(m.date);return !isNaN(d)&&(Date.now()-d)/864e5<=14}
 function fmt(m){var d=Date.parse(m.date);return m.date&&!isNaN(d)?new Date(d).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}):""}
 function badges(m){return(isNew(m)?'<span class="badge">Baru</span>':'')+(m.tested?'<span class="badge ok">✓ Diuji</span>':'')}
@@ -304,7 +323,7 @@ function filtered(){
 var t=q.value.trim().toLowerCase(),s=parseFloat(avS.value),c=chS.value;
 var arr=LIST.map(function(m,i){return{m:m,i:i}}).filter(function(x){var m=x.m;
 if(cat!=="Semua"&&m.cat!==cat)return false;
-if((m.name+" "+m.desc).toLowerCase().indexOf(t)<0)return false;
+if((m.name+" "+m.desc+" "+(m.cat||"")).toLowerCase().indexOf(t)<0)return false;
 if(s){var n=parseFloat(m.android);if(!isNaN(n)&&n>s)return false}
 if(c&&c!=="Semua"&&m.chipset&&m.chipset.toLowerCase()!==c.toLowerCase())return false;
 return true});
@@ -313,8 +332,8 @@ else arr.sort(function(a,b){var da=a.m.date?Date.parse(a.m.date):-Infinity,db=b.
 return arr}
 function draw(anim){
 box.classList.toggle("enter",!!anim);
-var arr=filtered();
-box.innerHTML=arr.length?arr.map(function(x,ix){var m=x.m;return '<article class="card" style="--i:'+Math.min(ix,10)+'"><div class="row"><h3>'+esc(m.name)+'</h3><span class="tag">'+esc(m.cat)+'</span></div><p>'+esc(m.desc)+'</p><div class="meta">'+(m.ver?'<span>'+esc(m.ver)+'</span>':'')+(m.android?'<span>Android '+esc(m.android)+'</span>':'')+(m.axmin?'<span>AX Manager '+esc(m.axmin)+'</span>':'')+badges(m)+'</div><div class="row"><button class="btn ghost" data-i="'+x.i+'">Detail</button><button class="btn ghost" data-s="'+x.i+'">Bagikan</button>'+dl(m)+'</div></article>'}).join(""):'<div class="empty">'+(LIST.length?'Tidak ada yang cocok. Coba kata kunci lain, ubah filter, atau pilih kategori Semua.':'Belum ada '+NOUN+' di sini. Segera hadir.')+'</div>'}
+var arr=filtered(),lb=LABEL[NOUN]||NOUN;
+box.innerHTML=arr.length?arr.map(function(x,ix){var m=x.m;return '<article class="card" style="--i:'+Math.min(ix,10)+'"><div class="row"><h3>'+esc(m.name)+'</h3><span class="tag">'+esc(m.cat)+'</span></div><p>'+esc(m.desc)+'</p><div class="meta">'+(m.ver?'<span>'+esc(m.ver)+'</span>':'')+(m.android?'<span>Android '+esc(m.android)+'</span>':'')+(m.axmin?'<span>AX Manager '+esc(m.axmin)+'</span>':'')+badges(m)+'</div><div class="row"><button class="btn ghost" data-i="'+x.i+'">Detail</button><button class="btn ghost" data-s="'+x.i+'">Bagikan</button>'+dl(m)+'</div></article>'}).join(""):'<div class="empty">'+(LIST.length?'Tidak ada yang cocok. Coba kata kunci lain, ubah filter, atau pilih kategori Semua.':'Belum ada '+lb+' di sini. Segera hadir.')+'</div>'}
 function reportUrl(m,gh){
 if(DATA.laporan&&!gh)return DATA.laporan;
 var h=location.hostname,p=location.pathname.split("/")[1];
@@ -350,10 +369,11 @@ $("cmt").appendChild(sc)}}
 function setTab(t,ask){
 var b=tabs.querySelector('[data-t="'+t+'"]');if(!b)return;
 if(ask&&t==="apk"&&b.getAttribute("aria-pressed")!=="true")wdlg.showModal();
-LIST={modul:MODULES,plugin:PLUGINS,apk:APKS}[t];NOUN=t;cat="Semua";q.value="";setCats();
+LIST={modul:MODULES,plugin:PLUGINS,apk:APKS,redmi9t:REDMI9T}[t];NOUN=t;cat="Semua";q.value="";setCats();
 [].forEach.call(tabs.children,function(x){x.setAttribute("aria-pressed",x===b)});
 info.textContent=INFO[t];$("warn").hidden=t!=="apk";
-q.placeholder="Cari "+t+(LIST[0]?", mis. "+LIST[0].name:"");drawChips();draw(true)}
+q.placeholder=LIST[0]?"Cari "+(LABEL[t]||t)+", mis. "+LIST[0].name:(PLACEHOLDER[t]||"Cari...");
+drawChips();draw(true)}
 chips.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;cat=b.dataset.c;drawChips();draw()});
 q.addEventListener("input",function(){draw()});
 [sortS,avS,chS].forEach(function(el){el.addEventListener("change",function(){draw()})});
@@ -387,10 +407,15 @@ function addSrc(j){
  if(!n&&WEBNOTE[j.web])box.textContent=WEBNOTE[j.web];
  if(box.childNodes.length){$("chatlog").appendChild(box);$("chatlog").scrollTop=$("chatlog").scrollHeight}}
 function setSug(show){var b=$("chatsug");b.textContent="";if(!show)return;var x=mk("button","btn sm","Kirim laporan ke tim");x.onclick=function(){openReport(null,lastUser)};b.appendChild(x)}
-function openChat(open){$("chatpanel").hidden=!open;$("chatfab").setAttribute("aria-expanded",open);if(open){if(!$("chatlog").children.length)addMsg("Halo! Aku asisten ModuleHub. Tanyakan soal modul, cara pasang, atau masalah yang kamu alami.","bot");$("chatin").focus()}}
+function openChat(open){$("chatpanel").hidden=!open;$("chatfab").setAttribute("aria-expanded",open);if(open){if(!$("chatlog").children.length)addMsg("Halo! Aku asisten ModuleHub. Tanyakan soal modul, file Redmi 9T, cara pasang, atau masalah yang kamu alami.","bot");$("chatin").focus()}}
 function openReport(m,text){
  var sel=$("rmod");sel.textContent="";
- [["Umum / situs ModuleHub","Umum"]].concat(MODULES.map(function(x){return[x.name,x.name]})).concat(PLUGINS.map(function(x){return[x.name+" (plugin)",x.name]})).concat(APKS.map(function(x){return[x.name+" (aplikasi)",x.name]})).forEach(function(o){var op=mk("option","",o[0]);op.value=o[1];sel.appendChild(op)});
+ [["Umum / situs ModuleHub","Umum"]]
+   .concat(MODULES.map(function(x){return[x.name,x.name]}))
+   .concat(PLUGINS.map(function(x){return[x.name+" (plugin)",x.name]}))
+   .concat(APKS.map(function(x){return[x.name+" (aplikasi)",x.name]}))
+   .concat(REDMI9T.map(function(x){return[x.name+" (Redmi 9T)",x.name]}))
+   .forEach(function(o){var op=mk("option","",o[0]);op.value=o[1];sel.appendChild(op)});
  if(m)sel.value=m.name;
  $("rdesc").value=text||"";$("rmsg").hidden=true;$("rsend").disabled=false;
  if(dlg.open)dlg.close();$("rdlg").showModal()}
@@ -425,7 +450,7 @@ $("rform").addEventListener("submit",function(e){
   var gh=reportUrl(null,true);if(gh){var a=mk("a","","Buka di GitHub");a.href=gh;a.target="_blank";a.rel="noopener";msg.appendChild(a)}
   $("rsend").disabled=false})});
 fetch("data.json").then(function(r){return r.json()}).then(function(d){
-DATA=d;MODULES=d.modul||[];PLUGINS=d.plugin||[];APKS=d.apk||[];
+DATA=d;MODULES=d.modul||[];PLUGINS=d.plugin||[];APKS=d.apk||[];REDMI9T=d.redmi9t||[];
 var rl=reportUrl(null);if(rl||d.chat){var ra=$("rep");ra.href=rl||"#";ra.hidden=false}
 CHAT=(d.chat||"").replace(/\/+$/,"");
 if(CHAT&&d.web){$("webtog").hidden=false;$("chatnote").textContent+=" Dengan pencarian internet aktif, pertanyaanmu dikirim ke layanan pencarian pihak ketiga."}
@@ -435,7 +460,7 @@ if(d.donasi){dn.href=d.donasi}else{$("donasi").hidden=true;var na=document.query
 if(d.tentang){$("tentang").hidden=false;$("navt").hidden=false;$("tentangtxt").textContent=d.tentang}
 if(d.goatcounter){var gc=document.createElement("script");gc.async=true;gc.src="https://gc.zgo.at/count.js";gc.setAttribute("data-goatcounter","https://"+d.goatcounter+".goatcounter.com/count");document.head.appendChild(gc)}
 var P=new URLSearchParams(location.search),t=P.get("t"),n=P.get("n");
-setTab({modul:1,plugin:1,apk:1}[t]?t:"modul",false);
+setTab({modul:1,plugin:1,apk:1,redmi9t:1}[t]?t:"modul",false);
 if(n){var idx=LIST.findIndex(function(m){return m.name===n});if(idx>-1)openDetail(idx)}
 endSplash();
 }).catch(function(){endSplash();box.innerHTML='<div class="empty">Gagal memuat data.json. Pastikan file ada di folder yang sama dengan index.html dan buka lewat alamat situs, bukan langsung dari file.</div>'});
