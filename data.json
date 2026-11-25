@@ -161,6 +161,22 @@
       "ver": "terbaru",
       "desc": "Layanan pengguna shell dan pengguna shizuku.Bypass Jailbreak KernelSU Next Dan Lainnya.",
       "url": "https://github.com/YuKongA/ghostlock-app/releases/tag/pre-release"
-    }
+    },
+    {
+      "redmi9t": [
+        {
+          "name": "BTFM.bin",
+          "cat": "MODEM",
+          "ver": "V14.0.2.0",
+          "desc": "Modem Bluetooth Redmi 9T, Flash Jika Bluetooth Anda Bermasalah/Tidak Tersedia",
+          "file": "file/BTFM.bin"
+        },
+        {
+          "name": "NON-HLOS.bin",
+          "cat": "Modem WiFi",
+          "ver": "V14.0.2.0",
+          "desc": "Modem Wi Fi Redmi 9T, Flash Jika Wi Fi Dan Data Seluler Anda Bermasalah/Tidak Tersedia",
+          "file": "file/NON-HLOS.bin"
+        }
   ]
 }
